@@ -180,10 +180,19 @@ function App() {
                                 Dimensões: {analysisResults.details[pageKey].width} x {analysisResults.details[pageKey].height}px
                               </p>
                               <p className="arca-body text-sm">
-                                Bordas detectadas: {analysisResults.details[pageKey].simulated_edges_detected ? '✓' : '✗'}
+                                Bordas detectadas: {analysisResults.details[pageKey].real_features?.edges_detected ? '✓' : '✗'}
                               </p>
                               <p className="arca-body text-sm">
-                                Linhas identificadas: {analysisResults.details[pageKey].simulated_lines_identified ? '✓' : '✗'}
+                                Linhas identificadas: {analysisResults.details[pageKey].real_features?.lines_identified ? '✓' : '✗'}
+                              </p>
+                              {analysisResults.details[pageKey].real_features?.num_lines_detected !== undefined && (
+                                <p className="arca-body text-sm">Número de linhas: {analysisResults.details[pageKey].real_features.num_lines_detected}</p>
+                              )}
+                              <p className="arca-body text-sm">
+                                Cômodos detectados (simulado): {analysisResults.details[pageKey].simulated_features?.rooms_detected}
+                              </p>
+                              <p className="arca-body text-sm">
+                                Portas/janelas detectadas (simulado): {analysisResults.details[pageKey].simulated_features?.doors_windows_detected ? '✓' : '✗'}
                               </p>
                             </div>
                           ))}
@@ -194,8 +203,17 @@ function App() {
                         <>
                           <p className="arca-body">Tipo: Imagem ({analysisResults.details.format})</p>
                           <p className="arca-body">Dimensões: {analysisResults.details.width} x {analysisResults.details.height}px</p>
-                          <p className="arca-body">Bordas detectadas: {analysisResults.details.simulated_features?.simulated_edges_detected ? '✓' : '✗'}</p>
-                          <p className="arca-body">Linhas identificadas: {analysisResults.details.simulated_features?.simulated_lines_identified ? '✓' : '✗'}</p>
+                          <p className="arca-body">Bordas detectadas: {analysisResults.details.real_features?.edges_detected ? '✓' : '✗'}</p>
+                          <p className="arca-body">Linhas identificadas: {analysisResults.details.real_features?.lines_identified ? '✓' : '✗'}</p>
+                          {analysisResults.details.real_features?.num_lines_detected !== undefined && (
+                            <p className="arca-body text-sm">Número de linhas: {analysisResults.details.real_features.num_lines_detected}</p>
+                          )}
+                          <p className="arca-body text-sm">
+                            Cômodos detectados (simulado): {analysisResults.details.simulated_features?.rooms_detected}
+                          </p>
+                          <p className="arca-body text-sm">
+                            Portas/janelas detectadas (simulado): {analysisResults.details.simulated_features?.doors_windows_detected ? '✓' : '✗'}
+                          </p>
                         </>
                       )}
                       
@@ -207,10 +225,10 @@ function App() {
                       )}
                       
                       <p className="arca-body">Tamanho: {(analysisResults.details?.size_bytes / 1024).toFixed(2)} KB</p>
-                      <p className="arca-body">Dimensões identificadas: {analysisResults.details?.simulated_elements?.dimensions_identified ? '✓' : '✗'}</p>
-                      <p className="arca-body">Portas/janelas: {analysisResults.details?.simulated_elements?.doors_windows_identified ? '✓' : '✗'}</p>
-                      <p className="arca-body">Cômodos: {analysisResults.details?.simulated_elements?.rooms_identified ? '✓' : '✗'}</p>
-                      <p className="arca-body">Bagua sobreposto: {analysisResults.details?.simulated_bagua_superposition ? '✓' : '✗'}</p>
+                      <p className="arca-body">Dimensões identificadas (simulado): {analysisResults.details?.simulated_elements?.dimensions_identified ? '✓' : '✗'}</p>
+                      <p className="arca-body">Portas/janelas (simulado): {analysisResults.details?.simulated_elements?.doors_windows_identified ? '✓' : '✗'}</p>
+                      <p className="arca-body">Cômodos (simulado): {analysisResults.details?.simulated_elements?.rooms_identified ? '✓' : '✗'}</p>
+                      <p className="arca-body">Bagua sobreposto (simulado): {analysisResults.details?.simulated_bagua_superposition ? '✓' : '✗'}</p>
                     </div>
                   </CardContent>
                 </Card>
