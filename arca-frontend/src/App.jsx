@@ -167,8 +167,49 @@ function App() {
                   <CardContent>
                     <div className="space-y-2">
                       <p className="arca-body">Status: <span className="text-primary">{analysisResults.status}</span></p>
-                      <p className="arca-body">Arquivo: {analysisResults.details?.file_type}</p>
+                      
+                      {/* Informações específicas do tipo de arquivo */}
+                      {analysisResults.details?.processed_as === 'image_from_pdf' && (
+                        <>
+                          <p className="arca-body">Tipo: PDF convertido para imagem</p>
+                          <p className="arca-body">Páginas processadas: {analysisResults.details.pages}</p>
+                          {Object.keys(analysisResults.details).filter(key => key.startsWith('page_')).map(pageKey => (
+                            <div key={pageKey} className="mt-2 p-2 bg-secondary/20 rounded">
+                              <p className="arca-body text-sm font-semibold">{pageKey.replace('_', ' ').toUpperCase()}:</p>
+                              <p className="arca-body text-sm">
+                                Dimensões: {analysisResults.details[pageKey].width} x {analysisResults.details[pageKey].height}px
+                              </p>
+                              <p className="arca-body text-sm">
+                                Bordas detectadas: {analysisResults.details[pageKey].simulated_edges_detected ? '✓' : '✗'}
+                              </p>
+                              <p className="arca-body text-sm">
+                                Linhas identificadas: {analysisResults.details[pageKey].simulated_lines_identified ? '✓' : '✗'}
+                              </p>
+                            </div>
+                          ))}
+                        </>
+                      )}
+                      
+                      {analysisResults.details?.processed_as === 'image' && (
+                        <>
+                          <p className="arca-body">Tipo: Imagem ({analysisResults.details.format})</p>
+                          <p className="arca-body">Dimensões: {analysisResults.details.width} x {analysisResults.details.height}px</p>
+                          <p className="arca-body">Bordas detectadas: {analysisResults.details.simulated_features?.simulated_edges_detected ? '✓' : '✗'}</p>
+                          <p className="arca-body">Linhas identificadas: {analysisResults.details.simulated_features?.simulated_lines_identified ? '✓' : '✗'}</p>
+                        </>
+                      )}
+                      
+                      {analysisResults.details?.processed_as === 'cad_simulation' && (
+                        <>
+                          <p className="arca-body">Tipo: DWG (simulação)</p>
+                          <p className="arca-body text-sm text-yellow-400">⚠️ Processamento DWG em desenvolvimento</p>
+                        </>
+                      )}
+                      
+                      <p className="arca-body">Tamanho: {(analysisResults.details?.size_bytes / 1024).toFixed(2)} KB</p>
                       <p className="arca-body">Dimensões identificadas: {analysisResults.details?.simulated_elements?.dimensions_identified ? '✓' : '✗'}</p>
+                      <p className="arca-body">Portas/janelas: {analysisResults.details?.simulated_elements?.doors_windows_identified ? '✓' : '✗'}</p>
+                      <p className="arca-body">Cômodos: {analysisResults.details?.simulated_elements?.rooms_identified ? '✓' : '✗'}</p>
                       <p className="arca-body">Bagua sobreposto: {analysisResults.details?.simulated_bagua_superposition ? '✓' : '✗'}</p>
                     </div>
                   </CardContent>
