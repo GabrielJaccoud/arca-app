@@ -20,7 +20,7 @@
         }
         .container {
             padding: 20px;
-            max-width: 800px;
+            max-width: 900px;
         }
         h1 {
             font-family: 'Playfair Display', serif;
@@ -28,11 +28,18 @@
             font-size: 2.5em;
             margin-bottom: 10px;
         }
+        h2 {
+            font-family: 'Inter', sans-serif;
+            color: #6B8E23;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+        }
         p {
             font-family: 'Lato', sans-serif;
             font-size: 1.1em;
             line-height: 1.6;
             margin-bottom: 20px;
+            color: #D3D3D3;
         }
         .logo {
             margin-bottom: 30px;
@@ -45,14 +52,56 @@
             display: inline-block;
             background-color: #F0E68C;
             color: #362F2D;
-            padding: 10px 20px;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: background-color 0.3s ease;
+            margin: 10px;
+            transition: all 0.3s ease;
         }
         .button:hover {
             background-color: #DAA520;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(240, 230, 140, 0.3);
+        }
+        .button.secondary {
+            background-color: #6B8E23;
+            color: #F0E68C;
+        }
+        .button.secondary:hover {
+            background-color: #8FBC8F;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .feature {
+            background-color: #4A3F3A;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #5A4F4A;
+            transition: all 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(240, 230, 140, 0.2);
+            border-color: #F0E68C;
+        }
+        .feature h3 {
+            color: #F0E68C;
+            margin-top: 0;
+        }
+        .status {
+            background-color: #6B8E23;
+            color: #F0E68C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
         }
         .footer {
             margin-top: 40px;
@@ -66,17 +115,53 @@
         <div class="logo">
             <img src="./assets/LOGO.png" alt="Logo ARCA">
         </div>
+        
+        <div class="status">✅ MVP Concluído</div>
+        
         <h1>ARCA - O Oráculo Arquitetônico da Consciência Ambiental</h1>
+        
         <p>
             O ARCA é um aplicativo revolucionário que opera como um Sistema de Design Ambiental Holístico e Personalizado.
             Ele integra conhecimentos milenares como Feng Shui, BaZi, I Ching, Geobiologia e Arquitetura Sagrada com princípios da física quântica, biofísica, neurociência ambiental e inteligência artificial.
-            Nosso objetivo é co-criar ambientes que não apenas abriguem, mas nutram, inspirem e alinhem seus habitantes com suas potencialidades mais profundas e com as forças criativas do universo.
         </p>
-        <a href="./docs/project_description.md" class="button">Saiba Mais sobre o Projeto</a>
+
+        <div class="features">
+            <div class="feature">
+                <h3>🏠 Análise Espacial</h3>
+                <p>Upload e processamento de plantas baixas com identificação automática de elementos arquitetônicos e superposição do mapa Bagua.</p>
+            </div>
+            <div class="feature">
+                <h3>⚡ Análise Energética</h3>
+                <p>Avaliação do fluxo de Chi, dados geográficos, proximidade de CEM e identificação de "venenos" arquitetônicos.</p>
+            </div>
+            <div class="feature">
+                <h3>👥 Perfis de Ocupantes</h3>
+                <p>Cadastro e análise de perfis individuais com cálculo BaZi para proprietários e classificação energética para funcionários.</p>
+            </div>
+        </div>
+
+        <h2>🚀 Acesse o MVP</h2>
+        <p>Experimente a versão atual do ARCA com todas as funcionalidades implementadas:</p>
+        
+        <a href="https://5173-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer" class="button" target="_blank">Acessar Aplicação</a>
+        <a href="https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer" class="button secondary" target="_blank">API Backend</a>
+
+        <h2>📚 Documentação</h2>
+        <a href="./docs/project_description.md" class="button">Descrição do Projeto</a>
         <a href="./docs/design_guide.md" class="button">Guia de Design</a>
+        <a href="./docs/api_documentation.md" class="button">Documentação da API</a>
+        <a href="./docs/roadmap.md" class="button">Roadmap</a>
+
+        <h2>🔧 Tecnologias Utilizadas</h2>
+        <p>
+            <strong>Backend:</strong> Python, Flask, Pillow, pdf2image<br>
+            <strong>Frontend:</strong> React, Tailwind CSS, shadcn/ui, Lucide Icons<br>
+            <strong>Infraestrutura:</strong> GitHub, GitHub Pages, Vite
+        </p>
     </div>
+    
     <div class="footer">
-        <p>&copy; 2025 ARCA. Todos os direitos reservados.</p>
+        <p>&copy; 2025 ARCA. Todos os direitos reservados. | Desenvolvido com ❤️ para harmonizar espaços e vidas.</p>
     </div>
 </body>
 </html>
