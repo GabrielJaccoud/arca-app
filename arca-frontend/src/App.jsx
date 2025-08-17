@@ -227,9 +227,56 @@ function App() {
                       Executar Análise Energética
                     </Button>
                     {analysisResults.energetic_analysis && (
-                      <div className="mt-4 space-y-2">
-                        <p className="arca-body">CEM: {analysisResults.energetic_analysis.geographical_analysis?.data?.cem_proximity}</p>
-                        <p className="arca-body">Anomalias geológicas: {analysisResults.energetic_analysis.geographical_analysis?.data?.geological_anomalies}</p>
+                      <div className="mt-4 space-y-4">
+                        {/* Dados de Campo Magnético Real */}
+                        {analysisResults.energetic_analysis.geographical_analysis?.data?.magnetic_field && (
+                          <div className="p-3 bg-primary/10 rounded-lg">
+                            <h4 className="arca-title text-sm mb-2">📡 Campo Magnético (Dados Reais)</h4>
+                            <div className="grid grid-cols-2 gap-2 text-xs">
+                              <p className="arca-body">Declinação: {analysisResults.energetic_analysis.geographical_analysis.data.magnetic_field.declination?.toFixed(2)}°</p>
+                              <p className="arca-body">Inclinação: {analysisResults.energetic_analysis.geographical_analysis.data.magnetic_field.inclination?.toFixed(2)}°</p>
+                              <p className="arca-body">Int. Horizontal: {analysisResults.energetic_analysis.geographical_analysis.data.magnetic_field.horizontal_intensity?.toFixed(0)} nT</p>
+                              <p className="arca-body">Int. Total: {analysisResults.energetic_analysis.geographical_analysis.data.magnetic_field.total_intensity?.toFixed(0)} nT</p>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Análise de CEM */}
+                        <div className="p-3 bg-secondary/10 rounded-lg">
+                          <h4 className="arca-title text-sm mb-2">⚡ Análise de CEM</h4>
+                          <p className="arca-body text-sm">Proximidade CEM: <span className={`font-semibold ${
+                            analysisResults.energetic_analysis.geographical_analysis?.data?.cem_proximity === 'high' ? 'text-red-400' :
+                            analysisResults.energetic_analysis.geographical_analysis?.data?.cem_proximity === 'medium' ? 'text-yellow-400' :
+                            'text-green-400'
+                          }`}>
+                            {analysisResults.energetic_analysis.geographical_analysis?.data?.cem_proximity}
+                          </span></p>
+                        </div>
+
+                        {/* Anomalias Geológicas */}
+                        <div className="p-3 bg-accent/10 rounded-lg">
+                          <h4 className="arca-title text-sm mb-2">🌍 Análise Geobiológica</h4>
+                          <p className="arca-body text-sm">Anomalias geológicas: {analysisResults.energetic_analysis.geographical_analysis?.data?.geological_anomalies}</p>
+                          <p className="arca-body text-sm">Veios de água: {analysisResults.energetic_analysis.geographical_analysis?.data?.nearby_water_veins ? '✓ Detectados' : '✗ Não detectados'}</p>
+                        </div>
+
+                        {/* Fluxo de Chi */}
+                        {analysisResults.energetic_analysis.chi_flow_analysis && (
+                          <div className="p-3 bg-muted/10 rounded-lg">
+                            <h4 className="arca-title text-sm mb-2">🌊 Fluxo de Chi</h4>
+                            <p className="arca-body text-sm">Qualidade: <span className={`font-semibold ${
+                              analysisResults.energetic_analysis.chi_flow_analysis.assessment?.chi_flow_quality === 'excellent' ? 'text-green-400' :
+                              analysisResults.energetic_analysis.chi_flow_analysis.assessment?.chi_flow_quality === 'good' ? 'text-blue-400' :
+                              analysisResults.energetic_analysis.chi_flow_analysis.assessment?.chi_flow_quality === 'fair' ? 'text-yellow-400' :
+                              'text-red-400'
+                            }`}>
+                              {analysisResults.energetic_analysis.chi_flow_analysis.assessment?.chi_flow_quality}
+                            </span></p>
+                            {analysisResults.energetic_analysis.chi_flow_analysis.assessment?.obstructed_areas?.length > 0 && (
+                              <p className="arca-body text-sm">Áreas obstruídas: {analysisResults.energetic_analysis.chi_flow_analysis.assessment.obstructed_areas.join(', ')}</p>
+                            )}
+                          </div>
+                        )}
                       </div>
                     )}
                   </CardContent>

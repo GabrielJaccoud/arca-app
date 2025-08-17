@@ -3,6 +3,7 @@ from spatial_analysis import process_floor_plan
 from energetic_analysis import get_geographical_data, simulate_chi_flow, identify_architectural_poisons, get_material_database_entry
 from occupant_profiles import calculate_bazi, classify_function_energy, relate_profile_to_area
 import os
+import datetime # Importar datetime
 
 app = Flask(__name__)
 
@@ -45,7 +46,9 @@ def analyze_energetics():
     if not latitude or not longitude:
         return jsonify({"status": "error", "message": "Latitude e Longitude são obrigatórias."}), 400
 
-    geo_data = get_geographical_data(latitude, longitude)
+    # Passar a data atual para get_geographical_data
+    current_date = datetime.date.today()
+    geo_data = get_geographical_data(latitude, longitude, current_date)
     chi_flow = simulate_chi_flow(floor_plan_data)
     architectural_poisons = identify_architectural_poisons(floor_plan_data)
 
