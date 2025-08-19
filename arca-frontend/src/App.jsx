@@ -13,6 +13,42 @@ function App() {
   const [floorPlanFile, setFloorPlanFile] = useState(null)
   const [analysisResults, setAnalysisResults] = useState(null)
   const [occupants, setOccupants] = useState([])
+  const [floorPlansHistory, setFloorPlansHistory] = useState([])
+  const [energeticAnalysesHistory, setEnergeticAnalysesHistory] = useState([])
+  const [occupantsHistory, setOccupantsHistory] = useState([])
+
+  // Função para carregar histórico de plantas baixas
+  const loadFloorPlansHistory = async () => {
+    try {
+      const response = await fetch('https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/floor_plans')
+      const data = await response.json()
+      setFloorPlansHistory(data)
+    } catch (error) {
+      console.error('Erro ao carregar histórico de plantas baixas:', error)
+    }
+  }
+
+  // Função para carregar histórico de análises energéticas
+  const loadEnergeticAnalysesHistory = async () => {
+    try {
+      const response = await fetch('https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/energetic_analyses')
+      const data = await response.json()
+      setEnergeticAnalysesHistory(data)
+    } catch (error) {
+      console.error('Erro ao carregar histórico de análises energéticas:', error)
+    }
+  }
+
+  // Função para carregar histórico de perfis de ocupantes
+  const loadOccupantsHistory = async () => {
+    try {
+      const response = await fetch('https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/occupant_profiles')
+      const data = await response.json()
+      setOccupantsHistory(data)
+    } catch (error) {
+      console.error('Erro ao carregar histórico de ocupantes:', error)
+    }
+  }
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0]
@@ -30,6 +66,8 @@ function App() {
         const result = await response.json()
         setAnalysisResults(result)
         setActiveTab('analysis')
+        // Recarregar histórico de plantas baixas
+        loadFloorPlansHistory()
       } catch (error) {
         console.error('Erro no upload:', error)
       }
@@ -46,11 +84,14 @@ function App() {
         body: JSON.stringify({
           latitude: -23.55052,
           longitude: -46.633309,
-          floor_plan_data: analysisResults?.details || {}
+          floor_plan_id: analysisResults?.id,
+          floor_plan_data: analysisResults?.analysis?.details || {}
         })
       })
       const result = await response.json()
       setAnalysisResults(prev => ({ ...prev, energetic_analysis: result }))
+      // Recarregar histórico de análises energéticas
+      loadEnergeticAnalysesHistory()
     } catch (error) {
       console.error('Erro na análise energética:', error)
     }
@@ -67,6 +108,8 @@ function App() {
       })
       const result = await response.json()
       setOccupants(prev => [...prev, result.profile])
+      // Recarregar histórico de ocupantes
+      loadOccupantsHistory()
     } catch (error) {
       console.error('Erro no cadastro de ocupante:', error)
     }
@@ -100,7 +143,7 @@ function App() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-card">
+          <TabsList className="grid w-full grid-cols-5 bg-card">
             <TabsTrigger value="upload" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Upload className="w-4 h-4 mr-2" />
               Upload
@@ -112,6 +155,10 @@ function App() {
             <TabsTrigger value="occupants" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Users className="w-4 h-4 mr-2" />
               Ocupantes
+            </TabsTrigger>
+            <TabsTrigger value="history" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <MapPin className="w-4 h-4 mr-2" />
+              Histórico
             </TabsTrigger>
             <TabsTrigger value="recommendations" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Leaf className="w-4 h-4 mr-2" />
@@ -346,6 +393,144 @@ function App() {
                 </CardContent>
               </Card>
             )}
+          </TabsContent>
+
+          {/* History Tab */}
+          <TabsContent value="history" className="space-y-6">
+            <div className="grid gap-6 md:grid-cols-3">
+              {/* Histórico de Plantas Baixas */}
+              <Card className="arca-card">
+                <CardHeader>
+                  <CardTitle className="arca-title flex items-center">
+                    <Upload className="w-5 h-5 mr-2" />
+                    Plantas Baixas
+                  </CardTitle>
+                  <CardDescription className="arca-body">
+                    Histórico de uploads realizados
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button 
+                    onClick={loadFloorPlansHistory} 
+                    className="arca-button w-full mb-4"
+                  >
+                    Carregar Histórico
+                  </Button>
+                  <div className="space-y-2 max-h-64 overflow-y-auto">
+                    {floorPlansHistory.map((plan) => (
+                      <div key={plan.id} className="p-3 bg-secondary/20 rounded-lg">
+                        <p className="arca-body text-sm font-semibold">{plan.filename}</p>
+                        <p className="arca-body text-xs text-muted-foreground">
+                          {new Date(plan.upload_date).toLocaleDateString('pt-BR')}
+                        </p>
+                        <p className="arca-body text-xs">
+                          Status: <span className={plan.analysis_results?.status === 'success' ? 'text-green-400' : 'text-red-400'}>
+                            {plan.analysis_results?.status}
+                          </span>
+                        </p>
+                      </div>
+                    ))}
+                    {floorPlansHistory.length === 0 && (
+                      <p className="arca-body text-center text-muted-foreground">Nenhuma planta baixa encontrada</p>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Histórico de Análises Energéticas */}
+              <Card className="arca-card">
+                <CardHeader>
+                  <CardTitle className="arca-title flex items-center">
+                    <Circle className="w-5 h-5 mr-2" />
+                    Análises Energéticas
+                  </CardTitle>
+                  <CardDescription className="arca-body">
+                    Histórico de análises realizadas
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button 
+                    onClick={loadEnergeticAnalysesHistory} 
+                    className="arca-button w-full mb-4"
+                  >
+                    Carregar Histórico
+                  </Button>
+                  <div className="space-y-2 max-h-64 overflow-y-auto">
+                    {energeticAnalysesHistory.map((analysis) => (
+                      <div key={analysis.id} className="p-3 bg-secondary/20 rounded-lg">
+                        <p className="arca-body text-sm font-semibold">
+                          Lat: {analysis.latitude.toFixed(4)}, Lon: {analysis.longitude.toFixed(4)}
+                        </p>
+                        <p className="arca-body text-xs text-muted-foreground">
+                          {new Date(analysis.analysis_date).toLocaleDateString('pt-BR')}
+                        </p>
+                        <p className="arca-body text-xs">
+                          CEM: <span className={`font-semibold ${
+                            analysis.cem_proximity === 'high' ? 'text-red-400' :
+                            analysis.cem_proximity === 'medium' ? 'text-yellow-400' :
+                            'text-green-400'
+                          }`}>
+                            {analysis.cem_proximity}
+                          </span>
+                        </p>
+                        {analysis.magnetic_field_data && (
+                          <p className="arca-body text-xs">
+                            Campo: {analysis.magnetic_field_data.total_intensity?.toFixed(0)} nT
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                    {energeticAnalysesHistory.length === 0 && (
+                      <p className="arca-body text-center text-muted-foreground">Nenhuma análise encontrada</p>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Histórico de Ocupantes */}
+              <Card className="arca-card">
+                <CardHeader>
+                  <CardTitle className="arca-title flex items-center">
+                    <Users className="w-5 h-5 mr-2" />
+                    Perfis de Ocupantes
+                  </CardTitle>
+                  <CardDescription className="arca-body">
+                    Histórico de cadastros realizados
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button 
+                    onClick={loadOccupantsHistory} 
+                    className="arca-button w-full mb-4"
+                  >
+                    Carregar Histórico
+                  </Button>
+                  <div className="space-y-2 max-h-64 overflow-y-auto">
+                    {occupantsHistory.map((occupant) => (
+                      <div key={occupant.id} className="p-3 bg-secondary/20 rounded-lg">
+                        <p className="arca-body text-sm font-semibold">{occupant.name}</p>
+                        <p className="arca-body text-xs text-muted-foreground">
+                          {new Date(occupant.registration_date).toLocaleDateString('pt-BR')}
+                        </p>
+                        <p className="arca-body text-xs">
+                          Tipo: <span className="font-semibold">
+                            {occupant.profile_type === 'owner_family' ? 'Proprietário/Família' : 'Funcionário'}
+                          </span>
+                        </p>
+                        {occupant.details?.bazi_profile && (
+                          <p className="arca-body text-xs">
+                            Elemento: {occupant.details.bazi_profile.profile?.master_element}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                    {occupantsHistory.length === 0 && (
+                      <p className="arca-body text-center text-muted-foreground">Nenhum ocupante encontrado</p>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           {/* Recommendations Tab */}

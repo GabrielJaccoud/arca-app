@@ -2,16 +2,27 @@ from flask import Flask, request, jsonify
 from spatial_analysis import process_floor_plan
 from energetic_analysis import get_geographical_data, simulate_chi_flow, identify_architectural_poisons, get_material_database_entry
 from occupant_profiles import calculate_bazi, classify_function_energy, relate_profile_to_area
+from models import db, FloorPlan, EnergeticAnalysis, OccupantProfile # Importar db e os modelos
 import os
-import datetime # Importar datetime
+import datetime
 
 app = Flask(__name__)
+
+# Configuração do banco de dados SQLite
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///arca.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app) # Inicializar o SQLAlchemy com o app Flask
 
 UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Criar tabelas do banco de dados se não existirem
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def index():
@@ -29,9 +40,20 @@ def upload_floor_plan():
     if file:
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(filepath)
-        result = process_floor_plan(filepath)
+        
+        # Processar a planta baixa
+        analysis_result = process_floor_plan(filepath)
         os.remove(filepath) # Remover o arquivo após o processamento
-        return jsonify(result), 200
+
+        # Salvar no banco de dados
+        new_floor_plan = FloorPlan(
+            filename=file.filename,
+            analysis_results=analysis_result # Salvar o resultado completo da análise
+        )
+        db.session.add(new_floor_plan)
+        db.session.commit()
+
+        return jsonify({"status": "success", "message": "Planta baixa processada e salva com sucesso.", "id": new_floor_plan.id, "analysis": analysis_result}), 200
 
 @app.route('/analyze_energetics', methods=['POST'])
 def analyze_energetics():
@@ -41,22 +63,38 @@ def analyze_energetics():
 
     latitude = data.get('latitude')
     longitude = data.get('longitude')
+    floor_plan_id = data.get('floor_plan_id') # Opcional: associar a uma planta baixa existente
     floor_plan_data = data.get('floor_plan_data', {}) # Dados simulados da planta baixa
 
     if not latitude or not longitude:
         return jsonify({"status": "error", "message": "Latitude e Longitude são obrigatórias."}), 400
 
-    # Passar a data atual para get_geographical_data
     current_date = datetime.date.today()
     geo_data = get_geographical_data(latitude, longitude, current_date)
     chi_flow = simulate_chi_flow(floor_plan_data)
     architectural_poisons = identify_architectural_poisons(floor_plan_data)
 
-    # Exemplo de como buscar dados de materiais (pode ser expandido)
     material_info = get_material_database_entry("wood")
+
+    # Salvar no banco de dados
+    new_energetic_analysis = EnergeticAnalysis(
+        floor_plan_id=floor_plan_id,
+        latitude=latitude,
+        longitude=longitude,
+        magnetic_field_data=geo_data.get('data', {}).get('magnetic_field'),
+        cem_proximity=geo_data.get('data', {}).get('cem_proximity'),
+        geological_anomalies=geo_data.get('data', {}).get('geological_anomalies'),
+        nearby_water_veins=geo_data.get('data', {}).get('nearby_water_veins'),
+        chi_flow_assessment=chi_flow.get('assessment'),
+        architectural_poisons=architectural_poisons.get('poisons')
+    )
+    db.session.add(new_energetic_analysis)
+    db.session.commit()
 
     return jsonify({
         "status": "success",
+        "message": "Análise energética realizada e salva com sucesso.",
+        "id": new_energetic_analysis.id,
         "geographical_analysis": geo_data,
         "chi_flow_analysis": chi_flow,
         "architectural_poisons": architectural_poisons,
@@ -69,7 +107,7 @@ def register_occupant():
     if not data:
         return jsonify({"status": "error", "message": "Dados JSON não fornecidos."}), 400
 
-    occupant_type = data.get('type') # 'owner_family' ou 'employee'
+    occupant_type = data.get('type')
     name = data.get('name')
 
     if not occupant_type or not name:
@@ -94,10 +132,56 @@ def register_occupant():
     else:
         return jsonify({"status": "error", "message": "Tipo de ocupante inválido."}), 400
 
-    # Simulação de relacionamento com área (pode ser um endpoint separado ou integrado)
-    # relate_profile_to_area("profile_id_gerado", "area_id_recebido")
+    # Salvar no banco de dados
+    new_occupant_profile = OccupantProfile(
+        name=name,
+        profile_type=occupant_type,
+        details=profile_data # Salvar o perfil completo nos detalhes
+    )
+    db.session.add(new_occupant_profile)
+    db.session.commit()
 
-    return jsonify({"status": "success", "message": "Perfil de ocupante registrado com sucesso (simulado).", "profile": profile_data}), 200
+    return jsonify({"status": "success", "message": "Perfil de ocupante registrado e salvo com sucesso.", "id": new_occupant_profile.id, "profile": profile_data}), 200
+
+# --- Novos Endpoints para Listar Dados --- #
+
+@app.route('/floor_plans', methods=['GET'])
+def get_floor_plans():
+    floor_plans = FloorPlan.query.all()
+    return jsonify([{
+        "id": fp.id,
+        "filename": fp.filename,
+        "upload_date": fp.upload_date.isoformat(),
+        "analysis_results": fp.analysis_results
+    } for fp in floor_plans]), 200
+
+@app.route('/energetic_analyses', methods=['GET'])
+def get_energetic_analyses():
+    analyses = EnergeticAnalysis.query.all()
+    return jsonify([{
+        "id": ea.id,
+        "floor_plan_id": ea.floor_plan_id,
+        "latitude": ea.latitude,
+        "longitude": ea.longitude,
+        "analysis_date": ea.analysis_date.isoformat(),
+        "magnetic_field_data": ea.magnetic_field_data,
+        "cem_proximity": ea.cem_proximity,
+        "geological_anomalies": ea.geological_anomalies,
+        "nearby_water_veins": ea.nearby_water_veins,
+        "chi_flow_assessment": ea.chi_flow_assessment,
+        "architectural_poisons": ea.architectural_poisons
+    } for ea in analyses]), 200
+
+@app.route('/occupant_profiles', methods=['GET'])
+def get_occupant_profiles():
+    profiles = OccupantProfile.query.all()
+    return jsonify([{
+        "id": op.id,
+        "name": op.name,
+        "profile_type": op.profile_type,
+        "details": op.details,
+        "registration_date": op.registration_date.isoformat()
+    } for op in profiles]), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
