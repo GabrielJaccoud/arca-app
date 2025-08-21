@@ -99,10 +99,10 @@ function App() {
 
   const handleOccupantRegistration = async (occupantData) => {
     try {
-      const response = await fetch('https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/register_occupant', {
-        method: 'POST',
+      const response = await fetch("https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/register_occupant", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(occupantData)
       })
@@ -111,7 +111,42 @@ function App() {
       // Recarregar histórico de ocupantes
       loadOccupantsHistory()
     } catch (error) {
-      console.error('Erro no cadastro de ocupante:', error)
+      console.error("Erro no cadastro de ocupante:", error)
+    }
+  }
+
+  const handleGenerateReport = async () => {
+    try {
+      const response = await fetch("https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/generate_report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          floor_plan_id: analysisResults?.id,
+          energetic_analysis_id: analysisResults?.energetic_analysis?.id,
+          occupant_profile_ids: occupantsHistory.map(o => o.id) // Incluir todos os ocupantes do histórico
+        })
+      })
+
+      if (response.ok) {
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href = url
+        a.download = "relatorio_arca.pdf"
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+        window.URL.revokeObjectURL(url)
+      } else {
+        const errorData = await response.json()
+        console.error("Erro ao gerar relatório:", errorData.message)
+        alert(`Erro ao gerar relatório: ${errorData.message}`)
+      }
+    } catch (error) {
+      console.error("Erro ao gerar relatório:", error)
+      alert("Erro ao gerar relatório. Verifique a conexão ou os dados.")
     }
   }
 
@@ -342,6 +377,13 @@ function App() {
                             )}
                           </div>
                         )}
+                        <Button 
+                          onClick={handleGenerateReport} 
+                          className="arca-button w-full mt-4"
+                          disabled={!analysisResults.id || !analysisResults.energetic_analysis?.id}
+                        >
+                          Gerar Relatório PDF
+                        </Button>
                       </div>
                     )}
                   </CardContent>

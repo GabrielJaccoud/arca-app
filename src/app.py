@@ -1,10 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from spatial_analysis import process_floor_plan
 from energetic_analysis import get_geographical_data, simulate_chi_flow, identify_architectural_poisons, get_material_database_entry
 from occupant_profiles import calculate_bazi, classify_function_energy, relate_profile_to_area
 from models import db, FloorPlan, EnergeticAnalysis, OccupantProfile # Importar db e os modelos
+from report_generator import generate_analysis_report # Importar o gerador de relatórios
 import os
 import datetime
+from io import BytesIO # Para lidar com o PDF em memória
 
 app = Flask(__name__)
 
@@ -182,6 +184,40 @@ def get_occupant_profiles():
         "details": op.details,
         "registration_date": op.registration_date.isoformat()
     } for op in profiles]), 200
+
+@app.route('/generate_report', methods=['POST'])
+def generate_report():
+    data = request.get_json()
+    if not data:
+        return jsonify({"status": "error", "message": "Dados JSON não fornecidos."}), 400
+
+    floor_plan_id = data.get('floor_plan_id')
+    energetic_analysis_id = data.get('energetic_analysis_id')
+    occupant_profile_ids = data.get('occupant_profile_ids', [])
+
+    floor_plan = None
+    if floor_plan_id:
+        floor_plan = FloorPlan.query.get(floor_plan_id)
+
+    energetic_analysis = None
+    if energetic_analysis_id:
+        energetic_analysis = EnergeticAnalysis.query.get(energetic_analysis_id)
+
+    occupant_profiles = []
+    if occupant_profile_ids:
+        occupant_profiles = OccupantProfile.query.filter(OccupantProfile.id.in_(occupant_profile_ids)).all()
+
+    if not floor_plan and not energetic_analysis and not occupant_profiles:
+        return jsonify({"status": "error", "message": "Nenhum dado válido fornecido para gerar o relatório."}), 400
+
+    pdf_output = generate_analysis_report(floor_plan, energetic_analysis, occupant_profiles)
+
+    return send_file(
+        BytesIO(pdf_output),
+        mimetype='application/pdf',
+        as_attachment=True,
+        download_name='relatorio_arca.pdf'
+    )
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
