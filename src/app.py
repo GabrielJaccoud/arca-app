@@ -7,6 +7,7 @@ from report_generator import generate_analysis_report # Importar o gerador de re
 import os
 import datetime
 from io import BytesIO # Para lidar com o PDF em memória
+from sqlalchemy import func # Para funções de agregação
 
 app = Flask(__name__)
 
@@ -218,6 +219,38 @@ def generate_report():
         as_attachment=True,
         download_name='relatorio_arca.pdf'
     )
+
+# --- Novos Endpoints para Dashboard Analytics --- #
+
+@app.route('/analytics/floor_plans_by_month', methods=['GET'])
+def get_floor_plans_by_month():
+    results = db.session.query(
+        func.strftime('%Y-%m', FloorPlan.upload_date),
+        func.count(FloorPlan.id)
+    ).group_by(func.strftime('%Y-%m', FloorPlan.upload_date)).all()
+
+    data = [{'month': r[0], 'count': r[1]} for r in results]
+    return jsonify(data), 200
+
+@app.route('/analytics/energetic_analyses_by_cem_proximity', methods=['GET'])
+def get_energetic_analyses_by_cem_proximity():
+    results = db.session.query(
+        EnergeticAnalysis.cem_proximity,
+        func.count(EnergeticAnalysis.id)
+    ).group_by(EnergeticAnalysis.cem_proximity).all()
+
+    data = [{'cem_proximity': r[0], 'count': r[1]} for r in results]
+    return jsonify(data), 200
+
+@app.route('/analytics/occupant_profiles_by_type', methods=['GET'])
+def get_occupant_profiles_by_type():
+    results = db.session.query(
+        OccupantProfile.profile_type,
+        func.count(OccupantProfile.id)
+    ).group_by(OccupantProfile.profile_type).all()
+
+    data = [{'profile_type': r[0], 'count': r[1]} for r in results]
+    return jsonify(data), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

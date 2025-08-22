@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Label } from '@/components/ui/label.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.jsx'
-import { Upload, Home, Leaf, Circle, MapPin, User, Users } from 'lucide-react'
+import { Upload, Home, Leaf, Circle, MapPin, User, Users, BarChart2 } from 'lucide-react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import arcaLogo from './assets/LOGO.png'
 import './App.css'
 
@@ -16,6 +17,11 @@ function App() {
   const [floorPlansHistory, setFloorPlansHistory] = useState([])
   const [energeticAnalysesHistory, setEnergeticAnalysesHistory] = useState([])
   const [occupantsHistory, setOccupantsHistory] = useState([])
+  const [analyticsData, setAnalyticsData] = useState({
+    floorPlansByMonth: [],
+    energeticAnalysesByCem: [],
+    occupantProfilesByType: []
+  })
 
   // Função para carregar histórico de plantas baixas
   const loadFloorPlansHistory = async () => {
@@ -42,13 +48,44 @@ function App() {
   // Função para carregar histórico de perfis de ocupantes
   const loadOccupantsHistory = async () => {
     try {
-      const response = await fetch('https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/occupant_profiles')
+      const response = await fetch("https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/occupant_profiles")
       const data = await response.json()
       setOccupantsHistory(data)
     } catch (error) {
-      console.error('Erro ao carregar histórico de ocupantes:', error)
+      console.error("Erro ao carregar histórico de ocupantes:", error)
     }
   }
+
+  // Funções para carregar dados de analytics
+  const loadAnalyticsData = async () => {
+    try {
+      const [floorPlansRes, energeticAnalysesRes, occupantProfilesRes] = await Promise.all([
+        fetch("https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/analytics/floor_plans_by_month"),
+        fetch("https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/analytics/energetic_analyses_by_cem_proximity"),
+        fetch("https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/analytics/occupant_profiles_by_type")
+      ])
+
+      const floorPlansByMonth = await floorPlansRes.json()
+      const energeticAnalysesByCem = await energeticAnalysesRes.json()
+      const occupantProfilesByType = await occupantProfilesRes.json()
+
+      setAnalyticsData({
+        floorPlansByMonth,
+        energeticAnalysesByCem,
+        occupantProfilesByType
+      })
+    } catch (error) {
+      console.error("Erro ao carregar dados de analytics:", error)
+    }
+  }
+
+  // Carregar dados de histórico e analytics na montagem do componente
+  useEffect(() => {
+    loadFloorPlansHistory()
+    loadEnergeticAnalysesHistory()
+    loadOccupantsHistory()
+    loadAnalyticsData()
+  }, [])
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0]
@@ -178,7 +215,7 @@ function App() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 bg-card">
+          <TabsList className="grid w-full grid-cols-6 bg-card">
             <TabsTrigger value="upload" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Upload className="w-4 h-4 mr-2" />
               Upload
@@ -194,6 +231,10 @@ function App() {
             <TabsTrigger value="history" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <MapPin className="w-4 h-4 mr-2" />
               Histórico
+            </TabsTrigger>
+            <TabsTrigger value="dashboard" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <BarChart2 className="w-4 h-4 mr-2" />
+              Dashboard
             </TabsTrigger>
             <TabsTrigger value="recommendations" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Leaf className="w-4 h-4 mr-2" />
@@ -573,6 +614,93 @@ function App() {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          {/* Dashboard Tab */}
+          <TabsContent value="dashboard" className="space-y-6">
+            <Card className="arca-card">
+              <CardHeader>
+                <CardTitle className="arca-title flex items-center">
+                  <BarChart2 className="w-5 h-5 mr-2" />
+                  Dashboard de Análises
+                </CardTitle>
+                <CardDescription className="arca-body">
+                  Visão geral e estatísticas das análises realizadas no ARCA.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-6 md:grid-cols-2">
+                {/* Gráfico de Plantas Baixas por Mês */}
+                <Card className="arca-card">
+                  <CardHeader>
+                    <CardTitle className="arca-title text-lg">Plantas Baixas por Mês</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={analyticsData.floorPlansByMonth}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="month" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="count" fill="#8884d8" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+
+                {/* Gráfico de Análises Energéticas por Proximidade CEM */}
+                <Card className="arca-card">
+                  <CardHeader>
+                    <CardTitle className="arca-title text-lg">Análises Energéticas por CEM</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <PieChart>
+                        <Pie
+                          data={analyticsData.energeticAnalysesByCem}
+                          dataKey="count"
+                          nameKey="cem_proximity"
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={100}
+                          fill="#82ca9d"
+                          label
+                        >
+                          {analyticsData.energeticAnalysesByCem.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={{
+                              high: "#ef4444", // red-500
+                              medium: "#f59e0b", // yellow-500
+                              low: "#22c55e" // green-500
+                            }[entry.cem_proximity]} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+
+                {/* Gráfico de Perfis de Ocupantes por Tipo */}
+                <Card className="arca-card">
+                  <CardHeader>
+                    <CardTitle className="arca-title text-lg">Perfis de Ocupantes por Tipo</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={analyticsData.occupantProfilesByType}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="profile_type" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="count" fill="#ffc658" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Recommendations Tab */}
