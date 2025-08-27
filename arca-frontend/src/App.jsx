@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input.jsx'
 import { Label } from '@/components/ui/label.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.jsx'
-import { Upload, Home, Leaf, Circle, MapPin, User, Users, BarChart2 } from 'lucide-react'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select.jsx'
+import { Upload, Home, Leaf, Circle, MapPin, User, Users, BarChart2, Search, Filter, Download } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import arcaLogo from './assets/LOGO.png'
 import './App.css'
@@ -86,6 +87,61 @@ function App() {
     loadOccupantsHistory()
     loadAnalyticsData()
   }, [])
+
+  // Funções de busca e filtros
+  const handleFloorPlanSearch = async (filters) => {
+    try {
+      const params = new URLSearchParams()
+      if (filters.filename) params.append('filename', filters.filename)
+      if (filters.status) params.append('status', filters.status)
+      if (filters.dateFrom) params.append('date_from', filters.dateFrom)
+      if (filters.dateTo) params.append('date_to', filters.dateTo)
+      
+      const response = await fetch(`https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/search/floor_plans?${params}`)
+      const data = await response.json()
+      setFloorPlansHistory(data)
+    } catch (error) {
+      console.error('Erro na busca de plantas baixas:', error)
+    }
+  }
+
+  const handleEnergeticAnalysisSearch = async (filters) => {
+    try {
+      const params = new URLSearchParams()
+      if (filters.cemProximity) params.append('cem_proximity', filters.cemProximity)
+      if (filters.geologicalAnomalies) params.append('geological_anomalies', filters.geologicalAnomalies)
+      if (filters.dateFrom) params.append('date_from', filters.dateFrom)
+      if (filters.dateTo) params.append('date_to', filters.dateTo)
+      if (filters.latitudeMin) params.append('latitude_min', filters.latitudeMin)
+      if (filters.latitudeMax) params.append('latitude_max', filters.latitudeMax)
+      if (filters.longitudeMin) params.append('longitude_min', filters.longitudeMin)
+      if (filters.longitudeMax) params.append('longitude_max', filters.longitudeMax)
+      
+      const response = await fetch(`https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/search/energetic_analyses?${params}`)
+      const data = await response.json()
+      setEnergeticAnalysesHistory(data)
+    } catch (error) {
+      console.error('Erro na busca de análises energéticas:', error)
+    }
+  }
+
+  const handleOccupantProfileSearch = async (filters) => {
+    try {
+      const params = new URLSearchParams()
+      if (filters.name) params.append('name', filters.name)
+      if (filters.profileType) params.append('profile_type', filters.profileType)
+      if (filters.dateFrom) params.append('date_from', filters.dateFrom)
+      if (filters.dateTo) params.append('date_to', filters.dateTo)
+      if (filters.baziElement) params.append('bazi_element', filters.baziElement)
+      if (filters.functionEnergy) params.append('function_energy', filters.functionEnergy)
+      
+      const response = await fetch(`https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/search/occupant_profiles?${params}`)
+      const data = await response.json()
+      setOccupantsHistory(data)
+    } catch (error) {
+      console.error('Erro na busca de perfis de ocupantes:', error)
+    }
+  }
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0]
@@ -480,6 +536,36 @@ function App() {
 
           {/* History Tab */}
           <TabsContent value="history" className="space-y-6">
+            {/* Seção de Filtros */}
+            <Card className="arca-card">
+              <CardHeader>
+                <CardTitle className="arca-title">Filtros de Busca</CardTitle>
+                <CardDescription className="arca-body">
+                  Use os filtros abaixo para refinar sua busca no histórico
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <SearchFilters 
+                  onFloorPlanSearch={handleFloorPlanSearch}
+                  onEnergeticAnalysisSearch={handleEnergeticAnalysisSearch}
+                  onOccupantProfileSearch={handleOccupantProfileSearch}
+                />
+              </CardContent>
+            </Card>
+
+            {/* Seção de Exportação */}
+            <Card className="arca-card">
+              <CardHeader>
+                <CardTitle className="arca-title">Exportação de Dados</CardTitle>
+                <CardDescription className="arca-body">
+                  Exporte seus dados em diferentes formatos para backup ou análise externa
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ExportSection />
+              </CardContent>
+            </Card>
+
             <div className="grid gap-6 md:grid-cols-3">
               {/* Histórico de Plantas Baixas */}
               <Card className="arca-card">
@@ -858,4 +944,543 @@ function OccupantForm({ onSubmit }) {
 }
 
 export default App
+
+
+
+// Componente para filtros de busca
+function SearchFilters({ onFloorPlanSearch, onEnergeticAnalysisSearch, onOccupantProfileSearch }) {
+  const [activeFilter, setActiveFilter] = useState('floor_plans')
+  const [floorPlanFilters, setFloorPlanFilters] = useState({
+    filename: '',
+    status: '',
+    dateFrom: '',
+    dateTo: ''
+  })
+  const [energeticFilters, setEnergeticFilters] = useState({
+    cemProximity: '',
+    geologicalAnomalies: '',
+    dateFrom: '',
+    dateTo: '',
+    latitudeMin: '',
+    latitudeMax: '',
+    longitudeMin: '',
+    longitudeMax: ''
+  })
+  const [occupantFilters, setOccupantFilters] = useState({
+    name: '',
+    profileType: '',
+    dateFrom: '',
+    dateTo: '',
+    baziElement: '',
+    functionEnergy: ''
+  })
+
+  const handleFloorPlanSearch = () => {
+    onFloorPlanSearch(floorPlanFilters)
+  }
+
+  const handleEnergeticSearch = () => {
+    onEnergeticAnalysisSearch(energeticFilters)
+  }
+
+  const handleOccupantSearch = () => {
+    onOccupantProfileSearch(occupantFilters)
+  }
+
+  const clearFloorPlanFilters = () => {
+    setFloorPlanFilters({
+      filename: '',
+      status: '',
+      dateFrom: '',
+      dateTo: ''
+    })
+  }
+
+  const clearEnergeticFilters = () => {
+    setEnergeticFilters({
+      cemProximity: '',
+      geologicalAnomalies: '',
+      dateFrom: '',
+      dateTo: '',
+      latitudeMin: '',
+      latitudeMax: '',
+      longitudeMin: '',
+      longitudeMax: ''
+    })
+  }
+
+  const clearOccupantFilters = () => {
+    setOccupantFilters({
+      name: '',
+      profileType: '',
+      dateFrom: '',
+      dateTo: '',
+      baziElement: '',
+      functionEnergy: ''
+    })
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Seletor de tipo de filtro */}
+      <div className="flex space-x-2">
+        <Button
+          variant={activeFilter === 'floor_plans' ? 'default' : 'outline'}
+          onClick={() => setActiveFilter('floor_plans')}
+          className="arca-button"
+        >
+          <Upload className="w-4 h-4 mr-2" />
+          Plantas Baixas
+        </Button>
+        <Button
+          variant={activeFilter === 'energetic' ? 'default' : 'outline'}
+          onClick={() => setActiveFilter('energetic')}
+          className="arca-button"
+        >
+          <Circle className="w-4 h-4 mr-2" />
+          Análises Energéticas
+        </Button>
+        <Button
+          variant={activeFilter === 'occupants' ? 'default' : 'outline'}
+          onClick={() => setActiveFilter('occupants')}
+          className="arca-button"
+        >
+          <Users className="w-4 h-4 mr-2" />
+          Ocupantes
+        </Button>
+      </div>
+
+      {/* Filtros para Plantas Baixas */}
+      {activeFilter === 'floor_plans' && (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <Label className="arca-body">Nome do Arquivo</Label>
+            <Input
+              value={floorPlanFilters.filename}
+              onChange={(e) => setFloorPlanFilters({...floorPlanFilters, filename: e.target.value})}
+              placeholder="Digite o nome do arquivo"
+              className="bg-input border-border"
+            />
+          </div>
+          <div>
+            <Label className="arca-body">Status</Label>
+            <Select value={floorPlanFilters.status} onValueChange={(value) => setFloorPlanFilters({...floorPlanFilters, status: value})}>
+              <SelectTrigger className="bg-input border-border">
+                <SelectValue placeholder="Selecione o status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Todos</SelectItem>
+                <SelectItem value="success">Sucesso</SelectItem>
+                <SelectItem value="error">Erro</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="arca-body">Data Inicial</Label>
+            <Input
+              type="date"
+              value={floorPlanFilters.dateFrom}
+              onChange={(e) => setFloorPlanFilters({...floorPlanFilters, dateFrom: e.target.value})}
+              className="bg-input border-border"
+            />
+          </div>
+          <div>
+            <Label className="arca-body">Data Final</Label>
+            <Input
+              type="date"
+              value={floorPlanFilters.dateTo}
+              onChange={(e) => setFloorPlanFilters({...floorPlanFilters, dateTo: e.target.value})}
+              className="bg-input border-border"
+            />
+          </div>
+          <div className="flex space-x-2">
+            <Button onClick={handleFloorPlanSearch} className="arca-button">
+              <Search className="w-4 h-4 mr-2" />
+              Buscar
+            </Button>
+            <Button onClick={clearFloorPlanFilters} variant="outline" className="arca-button">
+              Limpar
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Filtros para Análises Energéticas */}
+      {activeFilter === 'energetic' && (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <Label className="arca-body">Proximidade CEM</Label>
+            <Select value={energeticFilters.cemProximity} onValueChange={(value) => setEnergeticFilters({...energeticFilters, cemProximity: value})}>
+              <SelectTrigger className="bg-input border-border">
+                <SelectValue placeholder="Selecione CEM" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Todos</SelectItem>
+                <SelectItem value="low">Baixo</SelectItem>
+                <SelectItem value="medium">Médio</SelectItem>
+                <SelectItem value="high">Alto</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="arca-body">Anomalias Geológicas</Label>
+            <Select value={energeticFilters.geologicalAnomalies} onValueChange={(value) => setEnergeticFilters({...energeticFilters, geologicalAnomalies: value})}>
+              <SelectTrigger className="bg-input border-border">
+                <SelectValue placeholder="Selecione anomalias" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Todos</SelectItem>
+                <SelectItem value="none">Nenhuma</SelectItem>
+                <SelectItem value="minor">Menores</SelectItem>
+                <SelectItem value="moderate">Moderadas</SelectItem>
+                <SelectItem value="significant">Significativas</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="arca-body">Data Inicial</Label>
+            <Input
+              type="date"
+              value={energeticFilters.dateFrom}
+              onChange={(e) => setEnergeticFilters({...energeticFilters, dateFrom: e.target.value})}
+              className="bg-input border-border"
+            />
+          </div>
+          <div>
+            <Label className="arca-body">Data Final</Label>
+            <Input
+              type="date"
+              value={energeticFilters.dateTo}
+              onChange={(e) => setEnergeticFilters({...energeticFilters, dateTo: e.target.value})}
+              className="bg-input border-border"
+            />
+          </div>
+          <div>
+            <Label className="arca-body">Latitude Mín</Label>
+            <Input
+              type="number"
+              step="0.0001"
+              value={energeticFilters.latitudeMin}
+              onChange={(e) => setEnergeticFilters({...energeticFilters, latitudeMin: e.target.value})}
+              placeholder="-90.0000"
+              className="bg-input border-border"
+            />
+          </div>
+          <div>
+            <Label className="arca-body">Latitude Máx</Label>
+            <Input
+              type="number"
+              step="0.0001"
+              value={energeticFilters.latitudeMax}
+              onChange={(e) => setEnergeticFilters({...energeticFilters, latitudeMax: e.target.value})}
+              placeholder="90.0000"
+              className="bg-input border-border"
+            />
+          </div>
+          <div>
+            <Label className="arca-body">Longitude Mín</Label>
+            <Input
+              type="number"
+              step="0.0001"
+              value={energeticFilters.longitudeMin}
+              onChange={(e) => setEnergeticFilters({...energeticFilters, longitudeMin: e.target.value})}
+              placeholder="-180.0000"
+              className="bg-input border-border"
+            />
+          </div>
+          <div>
+            <Label className="arca-body">Longitude Máx</Label>
+            <Input
+              type="number"
+              step="0.0001"
+              value={energeticFilters.longitudeMax}
+              onChange={(e) => setEnergeticFilters({...energeticFilters, longitudeMax: e.target.value})}
+              placeholder="180.0000"
+              className="bg-input border-border"
+            />
+          </div>
+          <div className="flex space-x-2">
+            <Button onClick={handleEnergeticSearch} className="arca-button">
+              <Search className="w-4 h-4 mr-2" />
+              Buscar
+            </Button>
+            <Button onClick={clearEnergeticFilters} variant="outline" className="arca-button">
+              Limpar
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Filtros para Ocupantes */}
+      {activeFilter === 'occupants' && (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div>
+            <Label className="arca-body">Nome</Label>
+            <Input
+              value={occupantFilters.name}
+              onChange={(e) => setOccupantFilters({...occupantFilters, name: e.target.value})}
+              placeholder="Digite o nome"
+              className="bg-input border-border"
+            />
+          </div>
+          <div>
+            <Label className="arca-body">Tipo de Perfil</Label>
+            <Select value={occupantFilters.profileType} onValueChange={(value) => setOccupantFilters({...occupantFilters, profileType: value})}>
+              <SelectTrigger className="bg-input border-border">
+                <SelectValue placeholder="Selecione o tipo" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Todos</SelectItem>
+                <SelectItem value="owner_family">Proprietário/Família</SelectItem>
+                <SelectItem value="employee">Funcionário</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="arca-body">Elemento BaZi</Label>
+            <Select value={occupantFilters.baziElement} onValueChange={(value) => setOccupantFilters({...occupantFilters, baziElement: value})}>
+              <SelectTrigger className="bg-input border-border">
+                <SelectValue placeholder="Selecione elemento" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Todos</SelectItem>
+                <SelectItem value="Wood">Madeira</SelectItem>
+                <SelectItem value="Fire">Fogo</SelectItem>
+                <SelectItem value="Earth">Terra</SelectItem>
+                <SelectItem value="Metal">Metal</SelectItem>
+                <SelectItem value="Water">Água</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="arca-body">Energia da Função</Label>
+            <Select value={occupantFilters.functionEnergy} onValueChange={(value) => setOccupantFilters({...occupantFilters, functionEnergy: value})}>
+              <SelectTrigger className="bg-input border-border">
+                <SelectValue placeholder="Selecione energia" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Todos</SelectItem>
+                <SelectItem value="creative">Criativa</SelectItem>
+                <SelectItem value="analytical">Analítica</SelectItem>
+                <SelectItem value="leadership">Liderança</SelectItem>
+                <SelectItem value="supportive">Suporte</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="arca-body">Data Inicial</Label>
+            <Input
+              type="date"
+              value={occupantFilters.dateFrom}
+              onChange={(e) => setOccupantFilters({...occupantFilters, dateFrom: e.target.value})}
+              className="bg-input border-border"
+            />
+          </div>
+          <div>
+            <Label className="arca-body">Data Final</Label>
+            <Input
+              type="date"
+              value={occupantFilters.dateTo}
+              onChange={(e) => setOccupantFilters({...occupantFilters, dateTo: e.target.value})}
+              className="bg-input border-border"
+            />
+          </div>
+          <div className="flex space-x-2">
+            <Button onClick={handleOccupantSearch} className="arca-button">
+              <Search className="w-4 h-4 mr-2" />
+              Buscar
+            </Button>
+            <Button onClick={clearOccupantFilters} variant="outline" className="arca-button">
+              Limpar
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default App
+
+
+// Componente para exportação de dados
+function ExportSection() {
+  const handleExport = async (type, format) => {
+    try {
+      const response = await fetch(`https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/export/${type}?format=${format}`)
+      
+      if (response.ok) {
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.style.display = 'none'
+        a.href = url
+        
+        // Extrair nome do arquivo do header Content-Disposition ou usar padrão
+        const contentDisposition = response.headers.get('content-disposition')
+        let filename = `${type}.${format}`
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename="(.+)"/)
+          if (filenameMatch) {
+            filename = filenameMatch[1]
+          }
+        }
+        
+        a.download = filename
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+      } else {
+        console.error('Erro na exportação:', response.statusText)
+      }
+    } catch (error) {
+      console.error('Erro na exportação:', error)
+    }
+  }
+
+  const handleFullBackup = async () => {
+    try {
+      const response = await fetch('https://5000-i4jzvyj6hn9qmdbabo0f4-393f986f.manusvm.computer/export/full_backup')
+      
+      if (response.ok) {
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.style.display = 'none'
+        a.href = url
+        
+        // Extrair nome do arquivo do header Content-Disposition
+        const contentDisposition = response.headers.get('content-disposition')
+        let filename = `arca_backup_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.json`
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename="(.+)"/)
+          if (filenameMatch) {
+            filename = filenameMatch[1]
+          }
+        }
+        
+        a.download = filename
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+      } else {
+        console.error('Erro no backup completo:', response.statusText)
+      }
+    } catch (error) {
+      console.error('Erro no backup completo:', error)
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Exportações Individuais */}
+      <div className="grid gap-4 md:grid-cols-3">
+        {/* Plantas Baixas */}
+        <Card className="arca-card">
+          <CardHeader>
+            <CardTitle className="arca-title text-lg flex items-center">
+              <Upload className="w-4 h-4 mr-2" />
+              Plantas Baixas
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <Button 
+              onClick={() => handleExport('floor_plans', 'json')}
+              className="arca-button w-full"
+              variant="outline"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Exportar JSON
+            </Button>
+            <Button 
+              onClick={() => handleExport('floor_plans', 'csv')}
+              className="arca-button w-full"
+              variant="outline"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Exportar CSV
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Análises Energéticas */}
+        <Card className="arca-card">
+          <CardHeader>
+            <CardTitle className="arca-title text-lg flex items-center">
+              <Circle className="w-4 h-4 mr-2" />
+              Análises Energéticas
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <Button 
+              onClick={() => handleExport('energetic_analyses', 'json')}
+              className="arca-button w-full"
+              variant="outline"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Exportar JSON
+            </Button>
+            <Button 
+              onClick={() => handleExport('energetic_analyses', 'csv')}
+              className="arca-button w-full"
+              variant="outline"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Exportar CSV
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Perfis de Ocupantes */}
+        <Card className="arca-card">
+          <CardHeader>
+            <CardTitle className="arca-title text-lg flex items-center">
+              <Users className="w-4 h-4 mr-2" />
+              Perfis de Ocupantes
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <Button 
+              onClick={() => handleExport('occupant_profiles', 'json')}
+              className="arca-button w-full"
+              variant="outline"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Exportar JSON
+            </Button>
+            <Button 
+              onClick={() => handleExport('occupant_profiles', 'csv')}
+              className="arca-button w-full"
+              variant="outline"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Exportar CSV
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Backup Completo */}
+      <Card className="arca-card">
+        <CardHeader>
+          <CardTitle className="arca-title text-lg">Backup Completo</CardTitle>
+          <CardDescription className="arca-body">
+            Exporte todos os dados do sistema em um único arquivo JSON para backup completo
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button 
+            onClick={handleFullBackup}
+            className="arca-button w-full md:w-auto"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            Gerar Backup Completo
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
 

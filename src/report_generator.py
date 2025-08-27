@@ -30,20 +30,20 @@ def generate_analysis_report(floor_plan_data, energetic_analysis_data, occupant_
     pdf.chapter_title("Dados da Planta Baixa")
     if floor_plan_data:
         pdf.chapter_body(f"Nome do Arquivo: {floor_plan_data.filename}\n" \
-                         f"Data de Upload: {floor_plan_data.upload_date.strftime("%d/%m/%Y %H:%M")}\n" \
-                         f"Status da Análise: {floor_plan_data.analysis_results.get("status", "N/A")}\n" \
-                         f"Detalhes: {floor_plan_data.analysis_results.get("message", "N/A")}")
+                         f"Data de Upload: {floor_plan_data.upload_date.strftime('%d/%m/%Y %H:%M')}\n" \
+                         f"Status da Análise: {floor_plan_data.analysis_results.get('status', 'N/A')}\n" \
+                         f"Detalhes: {floor_plan_data.analysis_results.get('message', 'N/A')}")
         
         details = floor_plan_data.analysis_results.get("details", {})
         if details.get("processed_as") == "image":
-            pdf.chapter_body(f"Tipo: Imagem ({details.get("format")})\n" \
-                             f"Dimensões: {details.get("width")}x{details.get("height")}px\n" \
+            pdf.chapter_body(f"Tipo: Imagem ({details.get('format')})\n" \
+                             f"Dimensões: {details.get('width')}x{details.get('height')}px\n" \
                              f"Bordas Detectadas: {'Sim' if details.get('real_features', {}).get('edges_detected') else 'Não'}\n" \
                              f"Linhas Identificadas: {'Sim' if details.get('real_features', {}).get('lines_identified') else 'Não'}\n" \
                              f"Número de Linhas: {details.get('real_features', {}).get('num_lines_detected', 'N/A')}")
         elif details.get("processed_as") == "image_from_pdf":
             pdf.chapter_body(f"Tipo: PDF convertido para Imagem\n" \
-                             f"Páginas: {details.get("pages")}\n" \
+                             f"Páginas: {details.get('pages')}\n" \
                              f"Primeira Página - Dimensões: {details.get('page_1', {}).get('width')}x{details.get('page_1', {}).get('height')}px\n" \
                              f"Primeira Página - Bordas Detectadas: {'Sim' if details.get('page_1', {}).get('real_features', {}).get('edges_detected') else 'Não'}")
     else:
@@ -54,7 +54,7 @@ def generate_analysis_report(floor_plan_data, energetic_analysis_data, occupant_
     if energetic_analysis_data:
         pdf.chapter_body(f"Latitude: {energetic_analysis_data.latitude}\n" \
                          f"Longitude: {energetic_analysis_data.longitude}\n" \
-                         f"Data da Análise: {energetic_analysis_data.analysis_date.strftime("%d/%m/%Y %H:%M")}\n" \
+                         f"Data da Análise: {energetic_analysis_data.analysis_date.strftime('%d/%m/%Y %H:%M')}\n" \
                          f"Proximidade CEM: {energetic_analysis_data.cem_proximity}\n" \
                          f"Anomalias Geológicas: {energetic_analysis_data.geological_anomalies}\n" \
                          f"Veios de Água Próximos: {'Sim' if energetic_analysis_data.nearby_water_veins else 'Não'}")
@@ -86,7 +86,7 @@ def generate_analysis_report(floor_plan_data, energetic_analysis_data, occupant_
         for profile in occupant_profiles_data:
             pdf.chapter_body(f"Nome: {profile.name}\n" \
                              f"Tipo: {profile.profile_type}\n" \
-                             f"Data de Registro: {profile.registration_date.strftime("%d/%m/%Y %H:%M")}")
+                             f"Data de Registro: {profile.registration_date.strftime('%d/%m/%Y %H:%M')}")
             if profile.profile_type == "owner_family" and profile.details and profile.details.get("bazi_profile"):
                 bazi = profile.details.get("bazi_profile").get("profile", {})
                 pdf.chapter_body(f"  Elemento Mestre BaZi: {bazi.get('master_element', 'N/A')}\n" \
@@ -101,5 +101,7 @@ def generate_analysis_report(floor_plan_data, energetic_analysis_data, occupant_
 
     # Salvar o PDF em um buffer e retornar
     return pdf.output(dest='S').encode('latin1')
+
+
 
 
