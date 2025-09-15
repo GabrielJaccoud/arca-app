@@ -349,3 +349,243 @@ Todos os endpoints retornam:
 
 Atualmente, a API não requer autenticação. Em versões futuras, será implementado sistema de autenticação baseado em tokens JWT.
 
+
+
+---
+
+## 🌟 Novos Endpoints - Feng Shui Clássico
+
+### 7. Cálculo BaZi (Quatro Pilares do Destino)
+
+**POST** `/bazi/calculate`
+
+Calcula os Quatro Pilares do Destino baseado na data e hora de nascimento.
+
+**Parâmetros (JSON):**
+```json
+{
+  "birth_datetime": "1985-03-20T10:15:00",
+  "timezone_offset": -3
+}
+```
+
+**Resposta de Sucesso:**
+```json
+{
+  "status": "success",
+  "data": {
+    "year_pillar": {
+      "heavenly_stem": "乙",
+      "earthly_branch": "丑",
+      "element": "Wood",
+      "zodiac": "Ox"
+    },
+    "month_pillar": {
+      "heavenly_stem": "己",
+      "earthly_branch": "卯",
+      "element": "Earth",
+      "zodiac": "Rabbit"
+    },
+    "day_pillar": {
+      "heavenly_stem": "戊",
+      "earthly_branch": "戌",
+      "element": "Earth",
+      "zodiac": "Dog"
+    },
+    "hour_pillar": {
+      "heavenly_stem": "丁",
+      "earthly_branch": "巳",
+      "element": "Fire",
+      "zodiac": "Snake"
+    },
+    "day_master": {
+      "element": "Earth",
+      "strength": "Strong",
+      "useful_god": "Water"
+    },
+    "recommendations": {
+      "favorable_colors": ["blue", "black", "white"],
+      "favorable_directions": ["North", "West"],
+      "career_advice": "Suitable for water-related industries",
+      "health_advice": "Focus on kidney and bladder health"
+    }
+  }
+}
+```
+
+### 8. Cálculo Kua (Ba Zhai)
+
+**POST** `/kua/calculate`
+
+Calcula o número Kua e direções favoráveis baseado no ano de nascimento e gênero.
+
+**Parâmetros (JSON):**
+```json
+{
+  "birth_year": 1985,
+  "gender": "male"
+}
+```
+
+**Resposta de Sucesso:**
+```json
+{
+  "status": "success",
+  "data": {
+    "kua_number": 7,
+    "group": "West",
+    "element": "Metal",
+    "personality": "Communicative and charming",
+    "favorable_directions": {
+      "sheng_qi": "Northwest",
+      "tian_yi": "West", 
+      "nian_yan": "Northeast",
+      "fu_wei": "Southwest"
+    },
+    "unfavorable_directions": {
+      "huo_hai": "East",
+      "wu_gui": "Southeast",
+      "liu_sha": "South",
+      "jue_ming": "North"
+    },
+    "favorable_colors": ["white", "gold", "silver"],
+    "recommendations": {
+      "bedroom_direction": "West or Southwest",
+      "work_direction": "Northwest",
+      "entrance_direction": "West group directions"
+    }
+  }
+}
+```
+
+### 9. Análise de Compatibilidade da Casa
+
+**POST** `/feng_shui/house_analysis`
+
+Analisa a compatibilidade entre a orientação da casa e o Kua da pessoa.
+
+**Parâmetros (JSON):**
+```json
+{
+  "house_facing_direction": "West",
+  "birth_year": 1985,
+  "gender": "male"
+}
+```
+
+**Resposta de Sucesso:**
+```json
+{
+  "status": "success",
+  "data": {
+    "person_kua": 7,
+    "house_direction": "West",
+    "compatibility_level": "Excellent",
+    "compatibility_score": 95,
+    "analysis": {
+      "direction_type": "Tian Yi (Health)",
+      "benefits": [
+        "Excellent for health and recovery",
+        "Supports career advancement",
+        "Promotes family harmony"
+      ],
+      "recommendations": [
+        "Place bedroom in West or Southwest sector",
+        "Position work desk facing Northwest",
+        "Use white, gold, or silver colors in decoration"
+      ]
+    },
+    "feng_shui_advice": {
+      "entrance": "Keep entrance clean and well-lit",
+      "living_room": "Place main seating facing favorable directions",
+      "bedroom": "Position bed with head towards West or Southwest",
+      "kitchen": "Avoid placing stove in unfavorable directions"
+    }
+  }
+}
+```
+
+### 10. Análise Completa BaZi + Kua
+
+**POST** `/bazi_kua/complete_analysis`
+
+Realiza análise integrada combinando BaZi e Kua para recomendações holísticas.
+
+**Parâmetros (JSON):**
+```json
+{
+  "birth_datetime": "1985-03-20T10:15:00",
+  "birth_year": 1985,
+  "gender": "male",
+  "timezone_offset": -3
+}
+```
+
+**Resposta de Sucesso:**
+```json
+{
+  "status": "success",
+  "data": {
+    "bazi": {
+      "day_master": "Earth",
+      "useful_god": "Water",
+      "strength": "Strong"
+    },
+    "kua": {
+      "number": 7,
+      "group": "West",
+      "element": "Metal"
+    },
+    "integrated_analysis": {
+      "element_harmony": "Excellent - Metal supports Water",
+      "overall_compatibility": "Very Good",
+      "life_recommendations": {
+        "career": "Water or Metal industries recommended",
+        "health": "Focus on respiratory and kidney systems",
+        "relationships": "Compatible with Water and Earth people",
+        "living_space": "West-facing homes with water features"
+      }
+    },
+    "architectural_recommendations": {
+      "room_layout": "Master bedroom in West sector",
+      "color_scheme": "Blue, white, and metallic tones",
+      "materials": "Metal fixtures, water features, earth tones",
+      "lighting": "Soft, warm lighting in West areas"
+    }
+  }
+}
+```
+
+## Códigos de Erro Específicos
+
+### BaZi/Kua Endpoints
+- `400`: Parâmetros inválidos (data/ano/gênero)
+- `422`: Data de nascimento fora do range suportado
+- `500`: Erro interno no cálculo
+
+### Exemplos de Erro
+```json
+{
+  "status": "error",
+  "message": "Invalid birth year. Must be between 1900 and 2100",
+  "error_code": "INVALID_BIRTH_YEAR"
+}
+```
+
+## Notas de Implementação
+
+### Algoritmos Tradicionais
+- **BaZi**: Baseado no calendário chinês tradicional com cálculos de Heavenly Stems e Earthly Branches
+- **Kua**: Implementação do sistema Ba Zhai (Oito Casas) com fórmulas tradicionais
+- **Compatibilidade**: Análise integrada considerando ambos os sistemas
+
+### Performance
+- **Cálculos Locais**: Implementação também disponível no frontend para resposta instantânea
+- **Cache**: Resultados podem ser cacheados para consultas repetidas
+- **Validação**: Validação rigorosa de parâmetros de entrada
+
+### Precisão
+- **Calendário**: Conversão precisa entre calendário gregoriano e chinês
+- **Fuso Horário**: Suporte completo a diferentes fusos horários
+- **Tradições**: Algoritmos baseados em textos clássicos de Feng Shui
+

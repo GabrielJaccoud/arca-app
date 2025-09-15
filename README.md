@@ -47,6 +47,13 @@ O projeto ARCA está em sua versão MVP funcional, com todas as funcionalidades 
 - ✅ Cadastro de funcionários com classificação energética
 - ✅ Análise de compatibilidade com espaços
 
+### 🌟 **NOVO: Módulo Feng Shui Clássico**
+- ✅ **BaZi (Quatro Pilares do Destino)**: Calculadora completa com algoritmos tradicionais
+- ✅ **Kua (Ba Zhai - Oito Casas)**: Sistema de direções favoráveis e desfavoráveis
+- ✅ **Análise de Compatibilidade Residencial**: Integração pessoa-casa baseada no Kua
+- ✅ **Recomendações Personalizadas**: Cores, materiais, posicionamento e harmonização
+- ✅ **Interface Intuitiva**: Abas dedicadas com resultados detalhados e visuais
+
 ### 📊 Sistema de Analytics e Relatórios
 - ✅ Dashboard com gráficos interativos
 - ✅ Estatísticas de uso por período
@@ -80,17 +87,23 @@ arca-app/
 │   ├── spatial_analysis.py    # Análise espacial
 │   ├── energetic_analysis.py  # Análise energética
 │   ├── occupant_profiles.py   # Perfis de ocupantes
+│   ├── bazi_calculator.py     # 🌟 NOVO: Calculadora BaZi
+│   ├── kua_calculator.py      # 🌟 NOVO: Calculadora Kua
 │   └── report_generator.py   # Geração de relatórios
 ├── arca-frontend/         # Frontend React
 │   ├── src/
 │   │   ├── App.jsx       # Componente principal
-│   │   └── App.css       # Estilos personalizados
+│   │   ├── App.css       # Estilos personalizados
+│   │   └── utils/        # 🌟 NOVO: Utilitários
+│   │       ├── baziCalculator.js  # Calculadora BaZi local
+│   │       └── kuaCalculator.js   # Calculadora Kua local
 │   └── vite.config.js    # Configuração Vite
 ├── docs/                  # Documentação
 │   ├── api_documentation.md
 │   ├── design_guide.md
 │   ├── project_description.md
 │   └── roadmap.md
+├── test_results.md        # 🌟 NOVO: Relatório de testes
 └── index.html            # Landing page GitHub Pages
 ```
 
@@ -143,6 +156,34 @@ npm run dev
    - Recomendações automáticas
    - Análise preditiva
    - Machine Learning para padrões
+
+## 🌟 Funcionalidades Feng Shui Clássico
+
+### BaZi (Quatro Pilares do Destino)
+O sistema ARCA implementa uma calculadora completa de BaZi baseada em algoritmos tradicionais chineses:
+
+- **Cálculo dos Quatro Pilares**: Ano, Mês, Dia e Hora de nascimento
+- **Heavenly Stems e Earthly Branches**: Caracteres chineses tradicionais
+- **Análise dos Cinco Elementos**: Ciclos produtivo e destrutivo
+- **Day Master**: Identificação e análise de força elemental
+- **Useful God (用神)**: Determinação automática do elemento benéfico
+- **Recomendações Personalizadas**: Cores, direções, estilo de vida
+
+### Kua (Ba Zhai - Sistema das Oito Casas)
+Implementação completa do sistema Ba Zhai para análise de compatibilidade residencial:
+
+- **Número Kua**: Cálculo baseado em ano de nascimento e gênero
+- **Direções Favoráveis**: Sheng Qi, Tian Yi, Nian Yan, Fu Wei
+- **Direções Desfavoráveis**: Huo Hai, Wu Gui, Liu Sha, Jue Ming
+- **Análise de Personalidade**: Baseada no elemento do Kua
+- **Compatibilidade Residencial**: Análise da orientação da casa vs. Kua pessoal
+- **Recomendações Feng Shui**: Posicionamento de móveis, cores, materiais
+
+### Integração Prática
+- **Interface Intuitiva**: Abas dedicadas no frontend React
+- **Cálculos Locais**: Execução no browser sem dependência de rede
+- **Resultados Detalhados**: Análises completas com recomendações específicas
+- **Aplicação Arquitetônica**: Integração com análise de plantas baixas
 
 ## 🤝 Contribuição
 

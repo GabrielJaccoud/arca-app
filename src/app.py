@@ -5,6 +5,8 @@ from energetic_analysis import get_geographical_data, simulate_chi_flow, identif
 from occupant_profiles import calculate_bazi, classify_function_energy, relate_profile_to_area
 from models import db, FloorPlan, EnergeticAnalysis, OccupantProfile # Importar db e os modelos
 from report_generator import generate_analysis_report # Importar o gerador de relatórios
+from bazi_calculator import calculate_bazi_for_person # Importar novo módulo BaZi
+from kua_calculator import calculate_kua_for_person # Importar novo módulo Kua
 import os
 import datetime
 import json
@@ -697,3 +699,240 @@ def export_full_backup():
         download_name=f'arca_backup_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}.json'
     )
 
+
+# ==================== NOVOS ENDPOINTS BAZI E KUA ====================
+
+@app.route('/bazi/calculate', methods=['POST'])
+def calculate_bazi_endpoint():
+    """Calcula BaZi (Quatro Pilares do Destino) para uma pessoa"""
+    
+    try:
+        data = request.get_json()
+        
+        # Validar dados obrigatórios
+        required_fields = ['birth_datetime', 'timezone_offset']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"status": "error", "message": f"Campo obrigatório: {field}"}), 400
+        
+        # Converter string para datetime
+        birth_datetime = datetime.datetime.fromisoformat(data['birth_datetime'].replace('Z', '+00:00'))
+        timezone_offset = data.get('timezone_offset', -3)  # Padrão Brasil
+        
+        # Calcular BaZi
+        bazi_result = calculate_bazi_for_person(birth_datetime, timezone_offset)
+        
+        return jsonify({
+            "status": "success",
+            "data": bazi_result,
+            "message": "Cálculo BaZi realizado com sucesso"
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro no cálculo BaZi: {str(e)}"}), 500
+
+@app.route('/kua/calculate', methods=['POST'])
+def calculate_kua_endpoint():
+    """Calcula Número Kua e análise Ba Zhai para uma pessoa"""
+    
+    try:
+        data = request.get_json()
+        
+        # Validar dados obrigatórios
+        required_fields = ['birth_year', 'gender']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"status": "error", "message": f"Campo obrigatório: {field}"}), 400
+        
+        birth_year = int(data['birth_year'])
+        gender = data['gender'].lower()
+        
+        if gender not in ['male', 'female']:
+            return jsonify({"status": "error", "message": "Gênero deve ser 'male' ou 'female'"}), 400
+        
+        # Calcular Kua
+        kua_result = calculate_kua_for_person(birth_year, gender)
+        
+        return jsonify({
+            "status": "success",
+            "data": kua_result,
+            "message": "Cálculo Kua realizado com sucesso"
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro no cálculo Kua: {str(e)}"}), 500
+
+@app.route('/bazi_kua/complete_analysis', methods=['POST'])
+def complete_bazi_kua_analysis():
+    """Análise completa combinando BaZi e Kua para uma pessoa"""
+    
+    try:
+        data = request.get_json()
+        
+        # Validar dados obrigatórios
+        required_fields = ['birth_datetime', 'birth_year', 'gender']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"status": "error", "message": f"Campo obrigatório: {field}"}), 400
+        
+        # Extrair dados
+        birth_datetime = datetime.datetime.fromisoformat(data['birth_datetime'].replace('Z', '+00:00'))
+        birth_year = int(data['birth_year'])
+        gender = data['gender'].lower()
+        timezone_offset = data.get('timezone_offset', -3)
+        
+        # Calcular BaZi e Kua
+        bazi_result = calculate_bazi_for_person(birth_datetime, timezone_offset)
+        kua_result = calculate_kua_for_person(birth_year, gender)
+        
+        # Análise integrada
+        integrated_analysis = integrate_bazi_kua_analysis(bazi_result, kua_result)
+        
+        return jsonify({
+            "status": "success",
+            "data": {
+                "bazi": bazi_result,
+                "kua": kua_result,
+                "integrated_analysis": integrated_analysis
+            },
+            "message": "Análise completa BaZi + Kua realizada com sucesso"
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro na análise completa: {str(e)}"}), 500
+
+@app.route('/feng_shui/house_analysis', methods=['POST'])
+def feng_shui_house_analysis():
+    """Análise Feng Shui de casa baseada em Kua do morador"""
+    
+    try:
+        data = request.get_json()
+        
+        # Validar dados obrigatórios
+        required_fields = ['house_facing_direction', 'birth_year', 'gender']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"status": "error", "message": f"Campo obrigatório: {field}"}), 400
+        
+        house_facing = data['house_facing_direction']
+        birth_year = int(data['birth_year'])
+        gender = data['gender'].lower()
+        
+        # Calcular Kua
+        from kua_calculator import KuaCalculator
+        calculator = KuaCalculator()
+        kua_number = calculator.calculate_kua_number(birth_year, gender)
+        
+        # Analisar compatibilidade da casa
+        house_compatibility = calculator.analyze_house_compatibility(house_facing, kua_number)
+        
+        return jsonify({
+            "status": "success",
+            "data": house_compatibility,
+            "message": "Análise de compatibilidade da casa realizada com sucesso"
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro na análise da casa: {str(e)}"}), 500
+
+def integrate_bazi_kua_analysis(bazi_result: dict, kua_result: dict) -> dict:
+    """Integra análises BaZi e Kua para recomendações unificadas"""
+    
+    # Extrair elementos principais
+    day_master_element = bazi_result['day_master']['element']
+    useful_god_element = bazi_result['useful_god']['element']
+    kua_element = kua_result['characteristics']['element']
+    kua_group = kua_result['characteristics']['group']
+    
+    # Comparar elementos BaZi vs Kua
+    element_harmony = "harmonious" if day_master_element == kua_element else "different"
+    
+    # Integrar recomendações de cores
+    bazi_colors = bazi_result['recommendations']['favorable_colors']
+    kua_colors = kua_result['feng_shui_recommendations'].get('colors', [])
+    common_colors = list(set(bazi_colors) & set(kua_colors))
+    
+    # Integrar direções
+    bazi_directions = bazi_result['recommendations']['favorable_directions']
+    kua_directions = list(kua_result['favorable_directions'].values())
+    
+    # Recomendações unificadas
+    unified_recommendations = {
+        "priority_element": useful_god_element,
+        "secondary_element": kua_element,
+        "element_harmony": element_harmony,
+        "unified_colors": common_colors if common_colors else bazi_colors,
+        "primary_directions": kua_directions,
+        "career_alignment": analyze_career_alignment(bazi_result, kua_result),
+        "relationship_guidance": combine_relationship_advice(bazi_result, kua_result),
+        "feng_shui_priority": determine_feng_shui_priority(bazi_result, kua_result)
+    }
+    
+    return unified_recommendations
+
+def analyze_career_alignment(bazi_result: dict, kua_result: dict) -> dict:
+    """Analisa alinhamento de carreira entre BaZi e Kua"""
+    
+    bazi_careers = bazi_result['recommendations']['career_guidance']
+    kua_personality = kua_result['characteristics']['personality']
+    kua_strengths = kua_result['characteristics']['strengths']
+    
+    return {
+        "bazi_suggestions": bazi_careers,
+        "kua_personality": kua_personality,
+        "kua_strengths": kua_strengths,
+        "alignment_score": 85,  # Simplificado - em implementação real seria calculado
+        "recommended_fields": bazi_careers[:3]  # Top 3 recomendações
+    }
+
+def combine_relationship_advice(bazi_result: dict, kua_result: dict) -> dict:
+    """Combina conselhos de relacionamento de BaZi e Kua"""
+    
+    day_master_element = bazi_result['day_master']['element']
+    kua_advice = kua_result['compatibility']['relationship_advice']
+    
+    return {
+        "bazi_element_influence": f"Como pessoa {day_master_element}, você tende a ser {get_element_relationship_trait(day_master_element)}",
+        "kua_relationship_pattern": kua_advice,
+        "combined_advice": generate_combined_relationship_advice(day_master_element, kua_advice)
+    }
+
+def get_element_relationship_trait(element: str) -> str:
+    """Retorna traços de relacionamento baseados no elemento"""
+    
+    traits = {
+        "Wood": "flexível e em crescimento, mas pode ser indecisa",
+        "Fire": "apaixonada e energética, mas pode ser impaciente",
+        "Earth": "estável e confiável, mas pode ser possessiva",
+        "Metal": "organizada e leal, mas pode ser rígida",
+        "Water": "adaptável e intuitiva, mas pode ser evasiva"
+    }
+    
+    return traits.get(element, "equilibrada")
+
+def generate_combined_relationship_advice(day_master_element: str, kua_advice: dict) -> str:
+    """Gera conselho combinado de relacionamento"""
+    
+    return f"Baseado em sua natureza {day_master_element} e características Kua, {kua_advice.get('relationship_tips', 'mantenha equilíbrio em seus relacionamentos')}."
+
+def determine_feng_shui_priority(bazi_result: dict, kua_result: dict) -> dict:
+    """Determina prioridades de Feng Shui baseadas em ambas análises"""
+    
+    useful_god = bazi_result['useful_god']['element']
+    kua_directions = kua_result['favorable_directions']
+    
+    return {
+        "primary_focus": f"Fortalecer elemento {useful_god}",
+        "key_direction": kua_directions['sheng_qi'],
+        "secondary_direction": kua_directions['tian_yi'],
+        "avoid_direction": list(kua_result['unfavorable_directions'].values())[0],
+        "implementation_order": [
+            f"1. Posicionar cama/mesa na direção {kua_directions['sheng_qi']}",
+            f"2. Incorporar elemento {useful_god} no ambiente",
+            f"3. Evitar atividades importantes na direção {list(kua_result['unfavorable_directions'].values())[0]}",
+            "4. Aplicar cores e materiais recomendados"
+        ]
+    }
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5006)
