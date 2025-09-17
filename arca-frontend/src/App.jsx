@@ -268,8 +268,8 @@ function App() {
     }
   }
 
-  // Funções para BaZi e Kua
-  const calculateBaZiLocal = async () => {
+  // Funções para BaZi e Kua - Agora usando backend
+  const calculateBaZiBackend = async () => {
     setBaziData(prev => ({ ...prev, loading: true }))
     
     try {
@@ -279,18 +279,41 @@ function App() {
         return
       }
 
-      // Usar calculadora local
-      const result = calculateBaZi(baziData.birthDateTime, baziData.timezoneOffset)
-      setBaziData(prev => ({ ...prev, results: result, loading: false }))
+      const response = await fetch("https://5007-i9gi4qwrih9j9yd71dq7w-62eefc4a.manusvm.computer/bazi/calculate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          birth_datetime: baziData.birthDateTime,
+          timezone_offset: baziData.timezoneOffset
+        })
+      })
+      
+      const result = await response.json()
+      
+      if (result.status === 'success') {
+        setBaziData(prev => ({ ...prev, results: result.data, loading: false }))
+      } else {
+        console.error('Erro no cálculo BaZi:', result.message)
+        alert(`Erro no cálculo BaZi: ${result.message}`)
+        setBaziData(prev => ({ ...prev, loading: false }))
+      }
       
     } catch (error) {
       console.error('Erro no cálculo BaZi:', error)
-      alert('Erro no cálculo BaZi. Verifique os dados inseridos.')
-      setBaziData(prev => ({ ...prev, loading: false }))
+      // Fallback para calculadora local
+      try {
+        const result = calculateBaZi(baziData.birthDateTime, baziData.timezoneOffset)
+        setBaziData(prev => ({ ...prev, results: result, loading: false }))
+      } catch (localError) {
+        alert('Erro no cálculo BaZi. Verifique os dados inseridos.')
+        setBaziData(prev => ({ ...prev, loading: false }))
+      }
     }
   }
 
-  const calculateKuaLocal = async () => {
+  const calculateKuaBackend = async () => {
     setKuaData(prev => ({ ...prev, loading: true }))
     
     try {
@@ -300,25 +323,48 @@ function App() {
         return
       }
 
-      // Usar calculadora local
-      const result = calculateKua(parseInt(kuaData.birthYear), kuaData.gender)
-      setKuaData(prev => ({ ...prev, results: result, loading: false }))
+      const response = await fetch("https://5007-i9gi4qwrih9j9yd71dq7w-62eefc4a.manusvm.computer/kua/calculate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          birth_year: parseInt(kuaData.birthYear),
+          gender: kuaData.gender
+        })
+      })
+      
+      const result = await response.json()
+      
+      if (result.status === 'success') {
+        setKuaData(prev => ({ ...prev, results: result.data, loading: false }))
+      } else {
+        console.error('Erro no cálculo Kua:', result.message)
+        alert(`Erro no cálculo Kua: ${result.message}`)
+        setKuaData(prev => ({ ...prev, loading: false }))
+      }
       
     } catch (error) {
       console.error('Erro no cálculo Kua:', error)
-      alert('Erro no cálculo Kua. Verifique os dados inseridos.')
-      setKuaData(prev => ({ ...prev, loading: false }))
+      // Fallback para calculadora local
+      try {
+        const result = calculateKua(parseInt(kuaData.birthYear), kuaData.gender)
+        setKuaData(prev => ({ ...prev, results: result, loading: false }))
+      } catch (localError) {
+        alert('Erro no cálculo Kua. Verifique os dados inseridos.')
+        setKuaData(prev => ({ ...prev, loading: false }))
+      }
     }
   }
 
-  const calculateCompleteAnalysis = async () => {
+  const calculateCompleteAnalysisBackend = async () => {
     if (!baziData.birthDateTime || !kuaData.birthYear || !kuaData.gender) {
       alert('Preencha todos os campos para análise completa')
       return
     }
 
     try {
-      const response = await fetch("https://5001-i9gi4qwrih9j9yd71dq7w-62eefc4a.manusvm.computer/bazi_kua/complete_analysis", {
+      const response = await fetch("https://5007-i9gi4qwrih9j9yd71dq7w-62eefc4a.manusvm.computer/bazi_kua/complete_analysis", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -334,7 +380,7 @@ function App() {
       const result = await response.json()
       
       if (result.status === 'success') {
-        setCompleteAnalysis(result.data)
+        setCompleteAnalysis(result.data.integrated_analysis)
         setBaziData(prev => ({ ...prev, results: result.data.bazi }))
         setKuaData(prev => ({ ...prev, results: result.data.kua }))
       } else {
@@ -343,11 +389,21 @@ function App() {
       }
     } catch (error) {
       console.error('Erro na análise completa:', error)
-      alert('Erro na conexão. Verifique se o servidor está funcionando.')
+      alert('Erro na conexão. Usando cálculos locais como fallback.')
+      
+      // Fallback para cálculos locais
+      try {
+        const baziResult = calculateBaZi(baziData.birthDateTime, baziData.timezoneOffset)
+        const kuaResult = calculateKua(parseInt(kuaData.birthYear), kuaData.gender)
+        setBaziData(prev => ({ ...prev, results: baziResult }))
+        setKuaData(prev => ({ ...prev, results: kuaResult }))
+      } catch (localError) {
+        alert('Erro nos cálculos. Verifique os dados inseridos.')
+      }
     }
   }
 
-  const analyzeHouseCompatibilityLocal = async () => {
+  const analyzeHouseCompatibilityBackend = async () => {
     if (!houseAnalysis.facingDirection || !kuaData.birthYear || !kuaData.gender) {
       alert('Preencha todos os campos para análise da casa')
       return
@@ -356,14 +412,38 @@ function App() {
     setHouseAnalysis(prev => ({ ...prev, loading: true }))
 
     try {
-      // Usar calculadora local
-      const result = analyzeHouseCompatibility(houseAnalysis.facingDirection, parseInt(kuaData.birthYear), kuaData.gender)
-      setHouseAnalysis(prev => ({ ...prev, results: result, loading: false }))
+      const response = await fetch("https://5007-i9gi4qwrih9j9yd71dq7w-62eefc4a.manusvm.computer/feng_shui/house_analysis", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          house_facing_direction: houseAnalysis.facingDirection,
+          birth_year: parseInt(kuaData.birthYear),
+          gender: kuaData.gender
+        })
+      })
+      
+      const result = await response.json()
+      
+      if (result.status === 'success') {
+        setHouseAnalysis(prev => ({ ...prev, results: result.data, loading: false }))
+      } else {
+        console.error('Erro na análise da casa:', result.message)
+        alert(`Erro na análise da casa: ${result.message}`)
+        setHouseAnalysis(prev => ({ ...prev, loading: false }))
+      }
       
     } catch (error) {
       console.error('Erro na análise da casa:', error)
-      alert('Erro na análise da casa. Verifique os dados inseridos.')
-      setHouseAnalysis(prev => ({ ...prev, loading: false }))
+      // Fallback para calculadora local
+      try {
+        const result = analyzeHouseCompatibility(houseAnalysis.facingDirection, parseInt(kuaData.birthYear), kuaData.gender)
+        setHouseAnalysis(prev => ({ ...prev, results: result, loading: false }))
+      } catch (localError) {
+        alert('Erro na análise da casa. Verifique os dados inseridos.')
+        setHouseAnalysis(prev => ({ ...prev, loading: false }))
+      }
     }
   }
 
@@ -839,7 +919,7 @@ function App() {
                     </Select>
                   </div>
                   <Button 
-                    onClick={calculateBaZiLocal} 
+                    onClick={calculateBaZiBackend} 
                     disabled={!baziData.birthDateTime || baziData.loading}
                     className="arca-button w-full"
                   >
@@ -942,7 +1022,7 @@ function App() {
                     </Select>
                   </div>
                   <Button 
-                    onClick={calculateKuaLocal} 
+                    onClick={calculateKuaBackend} 
                     disabled={!kuaData.birthYear || !kuaData.gender || kuaData.loading}
                     className="arca-button w-full"
                   >
@@ -1009,7 +1089,7 @@ function App() {
                   </Select>
                 </div>
                 <Button 
-                  onClick={analyzeHouseCompatibilityLocal} 
+                  onClick={analyzeHouseCompatibilityBackend} 
                   disabled={!houseAnalysis.facingDirection || !kuaData.birthYear || !kuaData.gender || houseAnalysis.loading}
                   className="arca-button w-full"
                 >

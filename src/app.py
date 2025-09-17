@@ -3,7 +3,7 @@ from flask_cors import CORS
 from spatial_analysis import process_floor_plan
 from energetic_analysis import get_geographical_data, simulate_chi_flow, identify_architectural_poisons, get_material_database_entry
 from occupant_profiles import calculate_bazi, classify_function_energy, relate_profile_to_area
-from models import db, FloorPlan, EnergeticAnalysis, OccupantProfile # Importar db e os modelos
+from models import db, FloorPlan, EnergeticAnalysis, OccupantProfile, BaZiAnalysis, KuaAnalysis, HouseCompatibilityAnalysis, CompleteAnalysis # Importar db e os modelos
 from report_generator import generate_analysis_report # Importar o gerador de relatórios
 from bazi_calculator import calculate_bazi_for_person # Importar novo módulo BaZi
 from kua_calculator import calculate_kua_for_person # Importar novo módulo Kua
@@ -710,7 +710,7 @@ def calculate_bazi_endpoint():
         data = request.get_json()
         
         # Validar dados obrigatórios
-        required_fields = ['birth_datetime', 'timezone_offset']
+        required_fields = ['birth_datetime']
         for field in required_fields:
             if field not in data:
                 return jsonify({"status": "error", "message": f"Campo obrigatório: {field}"}), 400
@@ -718,14 +718,34 @@ def calculate_bazi_endpoint():
         # Converter string para datetime
         birth_datetime = datetime.datetime.fromisoformat(data['birth_datetime'].replace('Z', '+00:00'))
         timezone_offset = data.get('timezone_offset', -3)  # Padrão Brasil
+        occupant_profile_id = data.get('occupant_profile_id')  # Opcional
         
         # Calcular BaZi
         bazi_result = calculate_bazi_for_person(birth_datetime, timezone_offset)
         
+        # Salvar no banco de dados
+        new_bazi_analysis = BaZiAnalysis(
+            occupant_profile_id=occupant_profile_id,
+            birth_datetime=birth_datetime,
+            timezone_offset=timezone_offset,
+            year_pillar=bazi_result['year_pillar'],
+            month_pillar=bazi_result['month_pillar'],
+            day_pillar=bazi_result['day_pillar'],
+            hour_pillar=bazi_result['hour_pillar'],
+            day_master=bazi_result['day_master'],
+            useful_god=bazi_result['useful_god'],
+            recommendations=bazi_result['recommendations']
+        )
+        db.session.add(new_bazi_analysis)
+        db.session.commit()
+        
+        # Adicionar ID da análise ao resultado
+        bazi_result['analysis_id'] = new_bazi_analysis.id
+        
         return jsonify({
             "status": "success",
             "data": bazi_result,
-            "message": "Cálculo BaZi realizado com sucesso"
+            "message": "Cálculo BaZi realizado e salvo com sucesso"
         })
         
     except Exception as e:
@@ -746,6 +766,7 @@ def calculate_kua_endpoint():
         
         birth_year = int(data['birth_year'])
         gender = data['gender'].lower()
+        occupant_profile_id = data.get('occupant_profile_id')  # Opcional
         
         if gender not in ['male', 'female']:
             return jsonify({"status": "error", "message": "Gênero deve ser 'male' ou 'female'"}), 400
@@ -753,10 +774,29 @@ def calculate_kua_endpoint():
         # Calcular Kua
         kua_result = calculate_kua_for_person(birth_year, gender)
         
+        # Salvar no banco de dados
+        new_kua_analysis = KuaAnalysis(
+            occupant_profile_id=occupant_profile_id,
+            birth_year=birth_year,
+            gender=gender,
+            kua_number=kua_result['kua_number'],
+            group=kua_result['characteristics']['group'],
+            element=kua_result['characteristics']['element'],
+            personality=kua_result['characteristics']['personality'],
+            favorable_directions=kua_result['favorable_directions'],
+            unfavorable_directions=kua_result['unfavorable_directions'],
+            recommendations=kua_result['feng_shui_recommendations']
+        )
+        db.session.add(new_kua_analysis)
+        db.session.commit()
+        
+        # Adicionar ID da análise ao resultado
+        kua_result['analysis_id'] = new_kua_analysis.id
+        
         return jsonify({
             "status": "success",
             "data": kua_result,
-            "message": "Cálculo Kua realizado com sucesso"
+            "message": "Cálculo Kua realizado e salvo com sucesso"
         })
         
     except Exception as e:
@@ -780,22 +820,72 @@ def complete_bazi_kua_analysis():
         birth_year = int(data['birth_year'])
         gender = data['gender'].lower()
         timezone_offset = data.get('timezone_offset', -3)
+        occupant_profile_id = data.get('occupant_profile_id')
         
         # Calcular BaZi e Kua
         bazi_result = calculate_bazi_for_person(birth_datetime, timezone_offset)
         kua_result = calculate_kua_for_person(birth_year, gender)
         
+        # Salvar análises individuais
+        new_bazi_analysis = BaZiAnalysis(
+            occupant_profile_id=occupant_profile_id,
+            birth_datetime=birth_datetime,
+            timezone_offset=timezone_offset,
+            year_pillar=bazi_result['year_pillar'],
+            month_pillar=bazi_result['month_pillar'],
+            day_pillar=bazi_result['day_pillar'],
+            hour_pillar=bazi_result['hour_pillar'],
+            day_master=bazi_result['day_master'],
+            useful_god=bazi_result['useful_god'],
+            recommendations=bazi_result['recommendations']
+        )
+        
+        new_kua_analysis = KuaAnalysis(
+            occupant_profile_id=occupant_profile_id,
+            birth_year=birth_year,
+            gender=gender,
+            kua_number=kua_result['kua_number'],
+            group=kua_result['characteristics']['group'],
+            element=kua_result['characteristics']['element'],
+            personality=kua_result['characteristics']['personality'],
+            favorable_directions=kua_result['favorable_directions'],
+            unfavorable_directions=kua_result['unfavorable_directions'],
+            recommendations=kua_result['feng_shui_recommendations']
+        )
+        
+        db.session.add(new_bazi_analysis)
+        db.session.add(new_kua_analysis)
+        db.session.commit()
+        
         # Análise integrada
         integrated_analysis = integrate_bazi_kua_analysis(bazi_result, kua_result)
+        
+        # Salvar análise completa
+        new_complete_analysis = CompleteAnalysis(
+            bazi_analysis_id=new_bazi_analysis.id,
+            kua_analysis_id=new_kua_analysis.id,
+            element_harmony=integrated_analysis['element_harmony'],
+            unified_recommendations=integrated_analysis,
+            career_alignment=integrated_analysis['career_alignment'],
+            relationship_guidance=integrated_analysis['relationship_guidance'],
+            feng_shui_priority=integrated_analysis['feng_shui_priority']
+        )
+        db.session.add(new_complete_analysis)
+        db.session.commit()
         
         return jsonify({
             "status": "success",
             "data": {
                 "bazi": bazi_result,
                 "kua": kua_result,
-                "integrated_analysis": integrated_analysis
+                "integrated_analysis": integrated_analysis,
+                "analysis_ids": {
+                    "bazi_id": new_bazi_analysis.id,
+                    "kua_id": new_kua_analysis.id,
+                    "complete_id": new_complete_analysis.id
+                }
             },
-            "message": "Análise completa BaZi + Kua realizada com sucesso"
+            "message": "Análise completa BaZi + Kua realizada e salva com sucesso"
         })
         
     except Exception as e:
@@ -817,19 +907,61 @@ def feng_shui_house_analysis():
         house_facing = data['house_facing_direction']
         birth_year = int(data['birth_year'])
         gender = data['gender'].lower()
+        kua_analysis_id = data.get('kua_analysis_id')  # Opcional: usar análise Kua existente
         
-        # Calcular Kua
-        from kua_calculator import KuaCalculator
-        calculator = KuaCalculator()
-        kua_number = calculator.calculate_kua_number(birth_year, gender)
+        # Se não foi fornecido ID de análise Kua existente, calcular novo
+        if not kua_analysis_id:
+            kua_result = calculate_kua_for_person(birth_year, gender)
+            
+            # Salvar análise Kua
+            new_kua_analysis = KuaAnalysis(
+                birth_year=birth_year,
+                gender=gender,
+                kua_number=kua_result['kua_number'],
+                group=kua_result['characteristics']['group'],
+                element=kua_result['characteristics']['element'],
+                personality=kua_result['characteristics']['personality'],
+                favorable_directions=kua_result['favorable_directions'],
+                unfavorable_directions=kua_result['unfavorable_directions'],
+                recommendations=kua_result['feng_shui_recommendations']
+            )
+            db.session.add(new_kua_analysis)
+            db.session.commit()
+            kua_analysis_id = new_kua_analysis.id
+            kua_number = kua_result['kua_number']
+        else:
+            # Buscar análise Kua existente
+            existing_kua = KuaAnalysis.query.get(kua_analysis_id)
+            if not existing_kua:
+                return jsonify({"status": "error", "message": "Análise Kua não encontrada"}), 404
+            kua_number = existing_kua.kua_number
         
         # Analisar compatibilidade da casa
+        from kua_calculator import KuaCalculator
+        calculator = KuaCalculator()
         house_compatibility = calculator.analyze_house_compatibility(house_facing, kua_number)
+        
+        # Salvar análise de compatibilidade
+        new_house_analysis = HouseCompatibilityAnalysis(
+            kua_analysis_id=kua_analysis_id,
+            house_facing_direction=house_facing,
+            compatibility_level=house_compatibility['compatibility_level'],
+            compatibility_score=house_compatibility['compatibility_score'],
+            direction_type=house_compatibility['analysis']['direction_type'],
+            benefits=house_compatibility['analysis']['benefits'],
+            recommendations=house_compatibility['analysis']['recommendations'],
+            feng_shui_advice=house_compatibility['feng_shui_advice']
+        )
+        db.session.add(new_house_analysis)
+        db.session.commit()
+        
+        # Adicionar ID da análise ao resultado
+        house_compatibility['analysis_id'] = new_house_analysis.id
         
         return jsonify({
             "status": "success",
             "data": house_compatibility,
-            "message": "Análise de compatibilidade da casa realizada com sucesso"
+            "message": "Análise de compatibilidade da casa realizada e salva com sucesso"
         })
         
     except Exception as e:
@@ -935,4 +1067,307 @@ def determine_feng_shui_priority(bazi_result: dict, kua_result: dict) -> dict:
     }
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5006)
+    app.run(debug=True, host='0.0.0.0', port=5007)
+
+
+# ==================== ENDPOINTS DE HISTÓRICO E BUSCA ====================
+
+@app.route('/bazi/history', methods=['GET'])
+def get_bazi_history():
+    """Retorna histórico de análises BaZi"""
+    try:
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 10, type=int)
+        
+        analyses = BaZiAnalysis.query.order_by(BaZiAnalysis.analysis_date.desc()).paginate(
+            page=page, per_page=per_page, error_out=False
+        )
+        
+        result = []
+        for analysis in analyses.items:
+            result.append({
+                'id': analysis.id,
+                'birth_datetime': analysis.birth_datetime.isoformat(),
+                'timezone_offset': analysis.timezone_offset,
+                'day_master': analysis.day_master,
+                'useful_god': analysis.useful_god,
+                'analysis_date': analysis.analysis_date.isoformat(),
+                'occupant_profile_id': analysis.occupant_profile_id
+            })
+        
+        return jsonify({
+            'status': 'success',
+            'data': result,
+            'pagination': {
+                'page': page,
+                'per_page': per_page,
+                'total': analyses.total,
+                'pages': analyses.pages
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro ao buscar histórico BaZi: {str(e)}"}), 500
+
+@app.route('/kua/history', methods=['GET'])
+def get_kua_history():
+    """Retorna histórico de análises Kua"""
+    try:
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 10, type=int)
+        
+        analyses = KuaAnalysis.query.order_by(KuaAnalysis.analysis_date.desc()).paginate(
+            page=page, per_page=per_page, error_out=False
+        )
+        
+        result = []
+        for analysis in analyses.items:
+            result.append({
+                'id': analysis.id,
+                'birth_year': analysis.birth_year,
+                'gender': analysis.gender,
+                'kua_number': analysis.kua_number,
+                'group': analysis.group,
+                'element': analysis.element,
+                'personality': analysis.personality,
+                'analysis_date': analysis.analysis_date.isoformat(),
+                'occupant_profile_id': analysis.occupant_profile_id
+            })
+        
+        return jsonify({
+            'status': 'success',
+            'data': result,
+            'pagination': {
+                'page': page,
+                'per_page': per_page,
+                'total': analyses.total,
+                'pages': analyses.pages
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro ao buscar histórico Kua: {str(e)}"}), 500
+
+@app.route('/house_compatibility/history', methods=['GET'])
+def get_house_compatibility_history():
+    """Retorna histórico de análises de compatibilidade de casa"""
+    try:
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 10, type=int)
+        
+        analyses = HouseCompatibilityAnalysis.query.order_by(HouseCompatibilityAnalysis.analysis_date.desc()).paginate(
+            page=page, per_page=per_page, error_out=False
+        )
+        
+        result = []
+        for analysis in analyses.items:
+            result.append({
+                'id': analysis.id,
+                'house_facing_direction': analysis.house_facing_direction,
+                'compatibility_level': analysis.compatibility_level,
+                'compatibility_score': analysis.compatibility_score,
+                'direction_type': analysis.direction_type,
+                'analysis_date': analysis.analysis_date.isoformat(),
+                'kua_analysis_id': analysis.kua_analysis_id
+            })
+        
+        return jsonify({
+            'status': 'success',
+            'data': result,
+            'pagination': {
+                'page': page,
+                'per_page': per_page,
+                'total': analyses.total,
+                'pages': analyses.pages
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro ao buscar histórico de compatibilidade: {str(e)}"}), 500
+
+@app.route('/complete_analysis/history', methods=['GET'])
+def get_complete_analysis_history():
+    """Retorna histórico de análises completas BaZi + Kua"""
+    try:
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 10, type=int)
+        
+        analyses = CompleteAnalysis.query.order_by(CompleteAnalysis.analysis_date.desc()).paginate(
+            page=page, per_page=per_page, error_out=False
+        )
+        
+        result = []
+        for analysis in analyses.items:
+            result.append({
+                'id': analysis.id,
+                'element_harmony': analysis.element_harmony,
+                'analysis_date': analysis.analysis_date.isoformat(),
+                'bazi_analysis_id': analysis.bazi_analysis_id,
+                'kua_analysis_id': analysis.kua_analysis_id,
+                'unified_recommendations': analysis.unified_recommendations
+            })
+        
+        return jsonify({
+            'status': 'success',
+            'data': result,
+            'pagination': {
+                'page': page,
+                'per_page': per_page,
+                'total': analyses.total,
+                'pages': analyses.pages
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro ao buscar histórico de análises completas: {str(e)}"}), 500
+
+@app.route('/bazi/<int:analysis_id>', methods=['GET'])
+def get_bazi_analysis(analysis_id):
+    """Retorna análise BaZi específica por ID"""
+    try:
+        analysis = BaZiAnalysis.query.get_or_404(analysis_id)
+        
+        result = {
+            'id': analysis.id,
+            'birth_datetime': analysis.birth_datetime.isoformat(),
+            'timezone_offset': analysis.timezone_offset,
+            'year_pillar': analysis.year_pillar,
+            'month_pillar': analysis.month_pillar,
+            'day_pillar': analysis.day_pillar,
+            'hour_pillar': analysis.hour_pillar,
+            'day_master': analysis.day_master,
+            'useful_god': analysis.useful_god,
+            'recommendations': analysis.recommendations,
+            'analysis_date': analysis.analysis_date.isoformat(),
+            'occupant_profile_id': analysis.occupant_profile_id
+        }
+        
+        return jsonify({
+            'status': 'success',
+            'data': result
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro ao buscar análise BaZi: {str(e)}"}), 500
+
+@app.route('/kua/<int:analysis_id>', methods=['GET'])
+def get_kua_analysis(analysis_id):
+    """Retorna análise Kua específica por ID"""
+    try:
+        analysis = KuaAnalysis.query.get_or_404(analysis_id)
+        
+        result = {
+            'id': analysis.id,
+            'birth_year': analysis.birth_year,
+            'gender': analysis.gender,
+            'kua_number': analysis.kua_number,
+            'group': analysis.group,
+            'element': analysis.element,
+            'personality': analysis.personality,
+            'favorable_directions': analysis.favorable_directions,
+            'unfavorable_directions': analysis.unfavorable_directions,
+            'recommendations': analysis.recommendations,
+            'analysis_date': analysis.analysis_date.isoformat(),
+            'occupant_profile_id': analysis.occupant_profile_id
+        }
+        
+        return jsonify({
+            'status': 'success',
+            'data': result
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro ao buscar análise Kua: {str(e)}"}), 500
+
+# ==================== ENDPOINTS DE ANALYTICS FENG SHUI ====================
+
+@app.route('/analytics/bazi_elements', methods=['GET'])
+def get_bazi_elements_analytics():
+    """Analytics de distribuição de elementos Day Master em análises BaZi"""
+    try:
+        # Contar análises por elemento Day Master
+        from sqlalchemy import text
+        
+        query = text("""
+            SELECT 
+                JSON_EXTRACT(day_master, '$.element') as element,
+                COUNT(*) as count
+            FROM ba_zi_analysis 
+            WHERE day_master IS NOT NULL
+            GROUP BY JSON_EXTRACT(day_master, '$.element')
+            ORDER BY count DESC
+        """)
+        
+        result = db.session.execute(query).fetchall()
+        
+        analytics_data = []
+        for row in result:
+            analytics_data.append({
+                'element': row[0],
+                'count': row[1]
+            })
+        
+        return jsonify({
+            'status': 'success',
+            'data': analytics_data
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro ao gerar analytics BaZi: {str(e)}"}), 500
+
+@app.route('/analytics/kua_distribution', methods=['GET'])
+def get_kua_distribution_analytics():
+    """Analytics de distribuição de números Kua"""
+    try:
+        # Contar análises por número Kua
+        from sqlalchemy import func
+        
+        result = db.session.query(
+            KuaAnalysis.kua_number,
+            func.count(KuaAnalysis.id).label('count')
+        ).group_by(KuaAnalysis.kua_number).order_by(KuaAnalysis.kua_number).all()
+        
+        analytics_data = []
+        for row in result:
+            analytics_data.append({
+                'kua_number': row[0],
+                'count': row[1]
+            })
+        
+        return jsonify({
+            'status': 'success',
+            'data': analytics_data
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro ao gerar analytics Kua: {str(e)}"}), 500
+
+@app.route('/analytics/house_compatibility_scores', methods=['GET'])
+def get_house_compatibility_scores():
+    """Analytics de scores de compatibilidade de casas"""
+    try:
+        # Estatísticas de compatibilidade
+        from sqlalchemy import func
+        
+        result = db.session.query(
+            HouseCompatibilityAnalysis.compatibility_level,
+            func.count(HouseCompatibilityAnalysis.id).label('count'),
+            func.avg(HouseCompatibilityAnalysis.compatibility_score).label('avg_score')
+        ).group_by(HouseCompatibilityAnalysis.compatibility_level).all()
+        
+        analytics_data = []
+        for row in result:
+            analytics_data.append({
+                'compatibility_level': row[0],
+                'count': row[1],
+                'average_score': round(float(row[2]) if row[2] else 0, 2)
+            })
+        
+        return jsonify({
+            'status': 'success',
+            'data': analytics_data
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erro ao gerar analytics de compatibilidade: {str(e)}"}), 500
+
