@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #E8D0A9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #000000;
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+      }
+      .title {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        color: #4D6160;
+        text-align: center;
+      }
+      .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex: 1;
+      }
+      .left-column {
+        width: 48%;
+      }
+      .right-column {
+        width: 48%;
+      }
+      .section {
+        background: rgba(184, 115, 51, 0.15);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #A52A2A;
+      }
+      .pillar-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      .pillar-item {
+        background: rgba(77, 97, 96, 0.1);
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+      }
+      .pillar-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #4D6160;
+      }
+      .chinese-char {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .element-tag {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+      .fire {
+        background: rgba(165, 42, 42, 0.2);
+        color: #A52A2A;
+      }
+      .earth {
+        background: rgba(184, 115, 51, 0.2);
+        color: #B87333;
+      }
+      .metal {
+        background: rgba(169, 169, 169, 0.2);
+        color: #696969;
+      }
+      .water {
+        background: rgba(70, 130, 180, 0.2);
+        color: #4682B4;
+      }
+      .wood {
+        background: rgba(34, 139, 34, 0.2);
+        color: #228B22;
+      }
+      .info-item {
+        display: flex;
+        margin-bottom: 12px;
+        align-items: center;
+      }
+      .info-icon {
+        color: #4D6160;
+        margin-right: 15px;
+        font-size: 20px;
+        width: 25px;
+      }
+      .info-text {
+        font-size: 18px;
+      }
+      .footer {
+        font-size: 18px;
+        margin-top: 20px;
+        text-align: center;
+        color: #4D6160;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="title">Análise BaZi (Quatro Pilares)</h1>
+      
+      <div class="content">
+        <div class="left-column">
+          <div class="section">
+            <h2 class="section-title">Quatro Pilares</h2>
+            <div class="pillar-grid">
+              <div class="pillar-item">
+                <div class="pillar-title">Ano</div>
+                <div class="chinese-char">庚申</div>
+                <div>Geng Shen</div>
+                <div>Macaco</div>
+                <div class="element-tag metal">Metal Yang</div>
+              </div>
+              
+              <div class="pillar-item">
+                <div class="pillar-title">Mês</div>
+                <div class="chinese-char">甲酉</div>
+                <div>Jia You</div>
+                <div>Galo</div>
+                <div class="element-tag wood">Madeira Yang</div>
+              </div>
+              
+              <div class="pillar-item">
+                <div class="pillar-title">Dia</div>
+                <div class="chinese-char">丙午</div>
+                <div>Bing Wu</div>
+                <div>Cavalo</div>
+                <div class="element-tag fire">Fogo Yang</div>
+              </div>
+              
+              <div class="pillar-item">
+                <div class="pillar-title">Hora</div>
+                <div class="chinese-char">己丑</div>
+                <div>Ji Chou</div>
+                <div>Boi</div>
+                <div class="element-tag earth">Terra Yin</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="section">
+            <h2 class="section-title">Day Master</h2>
+            <div class="info-item">
+              <i class="fas fa-fire info-icon" style="color: #A52A2A;"></i>
+              <span class="info-text"><strong>Elemento:</strong> Fogo (Fire)</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-yin-yang info-icon"></i>
+              <span class="info-text"><strong>Polaridade:</strong> Yang</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-battery-quarter info-icon"></i>
+              <span class="info-text"><strong>Força:</strong> Fraco (Weak)</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="right-column">
+          <div class="section">
+            <h2 class="section-title">Elemento Útil</h2>
+            <div class="info-item">
+              <i class="fas fa-tree info-icon" style="color: #228B22;"></i>
+              <span class="info-text"><strong>Elemento de apoio:</strong> Madeira (Wood)</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-lightbulb info-icon"></i>
+              <span class="info-text"><strong>Função:</strong> Nutrir e fortalecer o Day Master Fogo</span>
+            </div>
+          </div>
+          
+          <div class="section">
+            <h2 class="section-title">Recomendações BaZi</h2>
+            <div class="info-item">
+              <i class="fas fa-palette info-icon"></i>
+              <span class="info-text"><strong>Cores favoráveis:</strong> Verde, Marrom claro, Bege</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-compass info-icon"></i>
+              <span class="info-text"><strong>Direções favoráveis:</strong> Leste, Sudeste</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-gem info-icon"></i>
+              <span class="info-text"><strong>Materiais:</strong> Madeira natural, plantas, tecidos naturais</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-shapes info-icon"></i>
+              <span class="info-text"><strong>Formas:</strong> Retangular, colunas, formas verticais</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p>O Day Master Fogo fraco precisa ser nutrido pelo elemento Madeira para equilibrar a carta BaZi</p>
+      </div>
+    </div>
+  </body>
+</html>

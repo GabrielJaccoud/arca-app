@@ -7,6 +7,7 @@ from models import db, FloorPlan, EnergeticAnalysis, OccupantProfile, BaZiAnalys
 from report_generator import generate_analysis_report # Importar o gerador de relatórios
 from bazi_calculator import calculate_bazi_for_person # Importar novo módulo BaZi
 from kua_calculator import calculate_kua_for_person # Importar novo módulo Kua
+from advanced_endpoints import advanced_bp # Importar Blueprint de endpoints avançados
 import os
 import datetime
 import json
@@ -31,6 +32,9 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Criar tabelas do banco de dados se não existirem
 with app.app_context():
     db.create_all()
+
+# Registrar Blueprint de endpoints avançados
+app.register_blueprint(advanced_bp)
 
 @app.route('/')
 def index():

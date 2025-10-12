@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5E6D3;
+        font-family: 'Montserrat', sans-serif;
+        padding: 60px 80px;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #D4AF37;
+        padding-bottom: 15px;
+      }
+      .content-layout {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+      }
+      .diagram-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .diagram-wrapper {
+        width: 100%;
+        height: 520px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #FFFFFF;
+        border: 2px solid #D4AF37;
+        padding: 10px;
+      }
+      .diagram-wrapper img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      .explanation-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .explanation-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #6B8E23;
+        margin-bottom: 25px;
+      }
+      .explanation-text {
+        font-size: 18px;
+        font-weight: 400;
+        color: #2C2C2C;
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #D4AF37, #C9A832);
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .highlight-text {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2C2C2C;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="page-title">Diagrama Ba Gua sobre Planta Baixa</h1>
+      
+      <div class="content-layout">
+        <div class="diagram-section">
+          <div class="diagram-wrapper">
+            <img src="/home/ubuntu/arca-app/apresentacao_feng_shui_nthlsqr/feng_shui_diagram_nthlsqr.png" alt="Diagrama Ba Gua sobre Planta Baixa">
+          </div>
+        </div>
+        
+        <div class="explanation-section">
+          <h2 class="explanation-title">Interpretação do Diagrama</h2>
+          
+          <p class="explanation-text">
+            O diagrama Ba Gua é uma ferramenta fundamental do Feng Shui que divide o espaço em oito setores, cada um correspondendo a uma área específica da vida e associado a direções cardeais.
+          </p>
+          
+          <p class="explanation-text">
+            A sobreposição do Ba Gua sobre a planta baixa permite identificar quais ambientes da residência ocupam cada setor energético, facilitando o planejamento de ajustes e correções.
+          </p>
+          
+          <div class="highlight-box">
+            <p class="highlight-text">
+              Este mapeamento energético é essencial para otimizar o posicionamento de móveis, escolha de cores e elementos decorativos em cada ambiente, maximizando o fluxo positivo de energia (Qi) em toda a residência.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

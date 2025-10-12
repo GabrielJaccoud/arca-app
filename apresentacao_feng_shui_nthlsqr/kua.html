@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5E6D3;
+        font-family: 'Montserrat', sans-serif;
+        padding: 60px 80px;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 40px;
+        border-bottom: 3px solid #D4AF37;
+        padding-bottom: 15px;
+      }
+      .main-content {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+        gap: 50px;
+        flex: 1;
+      }
+      .left-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .kua-badge {
+        background: linear-gradient(135deg, #D4AF37, #B8941F);
+        padding: 30px;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .kua-label {
+        font-size: 20px;
+        font-weight: 600;
+        color: #2C2C2C;
+        margin-bottom: 10px;
+      }
+      .kua-number {
+        font-size: 72px;
+        font-weight: 700;
+        color: #F5E6D3;
+        line-height: 1;
+      }
+      .attribute-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .attribute-item {
+        background: rgba(139, 69, 19, 0.08);
+        padding: 15px 20px;
+      }
+      .attr-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #6B8E23;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 5px;
+      }
+      .attr-value {
+        font-size: 20px;
+        font-weight: 400;
+        color: #2C2C2C;
+      }
+      .right-section {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .directions-block {
+        flex: 1;
+      }
+      .block-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        padding-left: 15px;
+        border-left: 5px solid #6B8E23;
+      }
+      .favorable {
+        color: #6B8E23;
+        border-left-color: #6B8E23;
+      }
+      .unfavorable {
+        color: #8B4513;
+        border-left-color: #8B4513;
+      }
+      .directions-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px 25px;
+      }
+      .direction-entry {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(139, 69, 19, 0.15);
+      }
+      .dir-name {
+        font-size: 18px;
+        font-weight: 600;
+        color: #2C2C2C;
+      }
+      .dir-meaning {
+        font-size: 14px;
+        font-weight: 400;
+        color: #6B8E23;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="page-title">Análise Kua - Ba Zhai (Oito Casas)</h1>
+      
+      <div class="main-content">
+        <div class="left-section">
+          <div class="kua-badge">
+            <div class="kua-label">Número Kua</div>
+            <div class="kua-number">2</div>
+          </div>
+          
+          <div class="attribute-list">
+            <div class="attribute-item">
+              <div class="attr-label">Grupo</div>
+              <div class="attr-value">Oeste (West Group)</div>
+            </div>
+            
+            <div class="attribute-item">
+              <div class="attr-label">Elemento</div>
+              <div class="attr-value">Terra (Earth)</div>
+            </div>
+            
+            <div class="attribute-item">
+              <div class="attr-label">Personalidade</div>
+              <div class="attr-value">Maternal, Receptivo, Paciente</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="right-section">
+          <div class="directions-block">
+            <h2 class="block-title favorable">Direções Favoráveis</h2>
+            <div class="directions-grid">
+              <div class="direction-entry">
+                <span class="dir-name">Nordeste</span>
+                <span class="dir-meaning">Sheng Qi - Prosperidade</span>
+              </div>
+              <div class="direction-entry">
+                <span class="dir-name">Oeste</span>
+                <span class="dir-meaning">Tian Yi - Saúde</span>
+              </div>
+              <div class="direction-entry">
+                <span class="dir-name">Noroeste</span>
+                <span class="dir-meaning">Yan Nian - Relacionamentos</span>
+              </div>
+              <div class="direction-entry">
+                <span class="dir-name">Sudoeste</span>
+                <span class="dir-meaning">Fu Wei - Estabilidade</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="directions-block">
+            <h2 class="block-title unfavorable">Direções Desfavoráveis</h2>
+            <div class="directions-grid">
+              <div class="direction-entry">
+                <span class="dir-name">Leste</span>
+                <span class="dir-meaning">Huo Hai - Acidentes</span>
+              </div>
+              <div class="direction-entry">
+                <span class="dir-name">Sudeste</span>
+                <span class="dir-meaning">Wu Gui - Cinco Fantasmas</span>
+              </div>
+              <div class="direction-entry">
+                <span class="dir-name">Sul</span>
+                <span class="dir-meaning">Liu Sha - Seis Mortes</span>
+              </div>
+              <div class="direction-entry">
+                <span class="dir-name">Norte</span>
+                <span class="dir-meaning">Jue Ming - Perda Total</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

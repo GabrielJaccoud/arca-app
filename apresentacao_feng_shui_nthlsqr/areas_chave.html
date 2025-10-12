@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5E6D3;
+        font-family: 'Montserrat', sans-serif;
+        padding: 50px 80px 45px 80px;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #D4AF37;
+        padding-bottom: 12px;
+      }
+      .areas-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+        flex: 1;
+      }
+      .area-block {
+        background: linear-gradient(135deg, #FFFFFF, #F5F5F5);
+        padding: 22px 25px;
+        display: flex;
+        flex-direction: column;
+        border-top: 4px solid #D4AF37;
+      }
+      .area-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .area-icon {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, #6B8E23, #8BA23E);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+      .area-icon i {
+        font-size: 22px;
+        color: #F5E6D3;
+      }
+      .area-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #8B4513;
+      }
+      .area-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+      .recommendation-line {
+        display: flex;
+        align-items: flex-start;
+        font-size: 15px;
+        line-height: 1.4;
+      }
+      .rec-bullet {
+        color: #D4AF37;
+        font-weight: 700;
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .rec-text {
+        color: #2C2C2C;
+      }
+      .rec-label {
+        font-weight: 600;
+        color: #6B8E23;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="page-title">Recomendações para Áreas Chave</h1>
+      
+      <div class="areas-grid">
+        <!-- Quarto Principal -->
+        <div class="area-block">
+          <div class="area-header">
+            <div class="area-icon">
+              <i class="fas fa-bed"></i>
+            </div>
+            <div class="area-title">Quarto Principal</div>
+          </div>
+          <div class="area-content">
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Localização ideal:</span> Sudoeste (Fu Wei - Estabilidade)</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Cabeceira da cama:</span> Voltada para Oeste (Tian Yi - Saúde)</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Cores recomendadas:</span> Tons terrosos (bege, marrom claro, terracota)</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Materiais:</span> Madeira natural, cerâmica, pedras naturais</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Benefícios:</span> Melhora na qualidade do sono e harmonia conjugal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Área de Trabalho/Escritório -->
+        <div class="area-block">
+          <div class="area-header">
+            <div class="area-icon">
+              <i class="fas fa-laptop"></i>
+            </div>
+            <div class="area-title">Área de Trabalho</div>
+          </div>
+          <div class="area-content">
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Posicionamento ideal:</span> Nordeste (Sheng Qi - Prosperidade)</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Mesa de trabalho:</span> Voltada para Nordeste com cadeira de costas para parede sólida</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Elementos decorativos:</span> Cristais, plantas em vasos de cerâmica</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Cores sugeridas:</span> Amarelo suave, bege, marrom claro</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Benefícios:</span> Aumento da produtividade e prosperidade profissional</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cozinha -->
+        <div class="area-block">
+          <div class="area-header">
+            <div class="area-icon">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <div class="area-title">Cozinha e Área de Alimentação</div>
+          </div>
+          <div class="area-content">
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Localização ideal:</span> Oeste (Tian Yi) ou Noroeste (Yan Nian)</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Evitar:</span> Posicionamento no Sul (Liu Sha) ou Norte (Jue Ming)</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Fogão:</span> Boca voltada para direção favorável (Oeste ou Nordeste)</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Paleta de cores:</span> Tons terrosos com toques de verde</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Benefícios:</span> Saúde e harmonia familiar</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Área da Piscina -->
+        <div class="area-block">
+          <div class="area-header">
+            <div class="area-icon">
+              <i class="fas fa-swimming-pool"></i>
+            </div>
+            <div class="area-title">Área da Piscina</div>
+          </div>
+          <div class="area-content">
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Posição ideal:</span> Nordeste ou Norte (pode neutralizar aspectos negativos)</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Formato recomendado:</span> Retangular ou quadrado (formas do elemento terra)</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Revestimento:</span> Tons terrosos para equilibrar o elemento água</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Paisagismo:</span> Plantas com folhagem verde abundante ao redor</span>
+            </div>
+            <div class="recommendation-line">
+              <span class="rec-bullet">●</span>
+              <span class="rec-text"><span class="rec-label">Benefícios:</span> Elemento água bem posicionado atrai prosperidade</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

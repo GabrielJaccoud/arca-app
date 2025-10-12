@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #E8D0A9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #000000;
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+      }
+      .title {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        color: #4D6160;
+        text-align: center;
+      }
+      .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex: 1;
+      }
+      .recommendations-column {
+        width: 48%;
+      }
+      .recommendation-item {
+        background: rgba(184, 115, 51, 0.15);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .recommendation-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #A52A2A;
+        display: flex;
+        align-items: center;
+      }
+      .recommendation-icon {
+        color: #4D6160;
+        margin-right: 15px;
+        font-size: 24px;
+      }
+      .recommendation-text {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .recommendation-benefit {
+        font-size: 16px;
+        font-style: italic;
+        color: #4D6160;
+      }
+      .footer {
+        font-size: 18px;
+        margin-top: 30px;
+        text-align: center;
+        color: #4D6160;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="title">Recomendações Principais</h1>
+      
+      <div class="content">
+        <div class="recommendations-column">
+          <div class="recommendation-item">
+            <h2 class="recommendation-title">
+              <i class="fas fa-door-open recommendation-icon"></i>
+              Correção da Entrada Principal
+            </h2>
+            <p class="recommendation-text">Criar entrada secundária voltada para Nordeste (Sheng Qi) ou Oeste (Tian Yi)</p>
+            <p class="recommendation-benefit">Benefício: Neutraliza a energia desfavorável da orientação Norte (Jue Ming)</p>
+          </div>
+          
+          <div class="recommendation-item">
+            <h2 class="recommendation-title">
+              <i class="fas fa-bed recommendation-icon"></i>
+              Posicionamento do Quarto Principal
+            </h2>
+            <p class="recommendation-text">Localizar o quarto principal na área Sudoeste (Fu Wei) com cabeceira voltada para Oeste</p>
+            <p class="recommendation-benefit">Benefício: Melhora na qualidade do sono e estabilidade pessoal</p>
+          </div>
+          
+          <div class="recommendation-item">
+            <h2 class="recommendation-title">
+              <i class="fas fa-palette recommendation-icon"></i>
+              Cores e Materiais
+            </h2>
+            <p class="recommendation-text">Utilizar tons de bege, marrom claro e verde (BaZi + Kua)</p>
+            <p class="recommendation-benefit">Benefício: Fortalece o elemento Madeira (útil) e Terra (Kua)</p>
+          </div>
+        </div>
+        
+        <div class="recommendations-column">
+          <div class="recommendation-item">
+            <h2 class="recommendation-title">
+              <i class="fas fa-briefcase recommendation-icon"></i>
+              Área de Trabalho/Escritório
+            </h2>
+            <p class="recommendation-text">Posicionar no setor Nordeste (Sheng Qi) com mesa voltada para Nordeste</p>
+            <p class="recommendation-benefit">Benefício: Potencializa prosperidade e crescimento profissional</p>
+          </div>
+          
+          <div class="recommendation-item">
+            <h2 class="recommendation-title">
+              <i class="fas fa-swimming-pool recommendation-icon"></i>
+              Área da Piscina
+            </h2>
+            <p class="recommendation-text">Manter no Nordeste com formato retangular e revestimento em tons terrosos</p>
+            <p class="recommendation-benefit">Benefício: O elemento água no Nordeste neutraliza aspectos negativos</p>
+          </div>
+          
+          <div class="recommendation-item">
+            <h2 class="recommendation-title">
+              <i class="fas fa-gem recommendation-icon"></i>
+              Elementos Corretivos
+            </h2>
+            <p class="recommendation-text">Adicionar cristais de quartzo na entrada, plantas com folhas arredondadas e espelho Ba Gua</p>
+            <p class="recommendation-benefit">Benefício: Corrige e harmoniza a energia da casa</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p>Recomendações baseadas na integração dos sistemas BaZi e Kua para Gabriel (Kua 2)</p>
+      </div>
+    </div>
+  </body>
+</html>

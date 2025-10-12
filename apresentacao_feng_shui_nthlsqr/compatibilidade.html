@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5E6D3;
+        font-family: 'Montserrat', sans-serif;
+        padding: 60px 80px;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 40px;
+        border-bottom: 3px solid #D4AF37;
+        padding-bottom: 15px;
+      }
+      .content-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        flex: 1;
+      }
+      .left-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .compatibility-display {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .score-circle {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #D4AF37, #B8941F);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 30px;
+        box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+      }
+      .score-number {
+        font-size: 72px;
+        font-weight: 700;
+        color: #2C2C2C;
+        line-height: 1;
+      }
+      .score-label {
+        font-size: 20px;
+        font-weight: 600;
+        color: #2C2C2C;
+        margin-top: 5px;
+      }
+      .effect-badge {
+        display: inline-block;
+        padding: 12px 40px;
+        background: #6B8E23;
+        color: #F5E6D3;
+        font-size: 24px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .analysis-table {
+        width: 100%;
+        margin-top: 30px;
+      }
+      .table-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 18px 0;
+        border-bottom: 1px solid #D4AF37;
+      }
+      .table-row:last-child {
+        border-bottom: none;
+      }
+      .table-label {
+        font-size: 18px;
+        font-weight: 600;
+        color: #6B8E23;
+      }
+      .table-value {
+        font-size: 18px;
+        font-weight: 400;
+        color: #2C2C2C;
+      }
+      .right-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(139, 69, 19, 0.08), rgba(107, 142, 35, 0.08));
+        padding: 40px;
+      }
+      .interpretation-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 25px;
+      }
+      .interpretation-text {
+        font-size: 18px;
+        font-weight: 400;
+        color: #2C2C2C;
+        line-height: 1.7;
+        margin-bottom: 25px;
+      }
+      .highlight-box {
+        background: #8B4513;
+        color: #F5E6D3;
+        padding: 20px 25px;
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 1.6;
+        margin-top: 10px;
+      }
+      .warning-icon {
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="page-title">Compatibilidade Casa-Ocupante</h1>
+      
+      <div class="content-layout">
+        <div class="left-section">
+          <div class="compatibility-display">
+            <div class="score-circle">
+              <div class="score-number">50</div>
+              <div class="score-label">/100</div>
+            </div>
+            <div class="effect-badge">NEUTRO</div>
+          </div>
+          
+          <div class="analysis-table">
+            <div class="table-row">
+              <div class="table-label">Direção da Casa</div>
+              <div class="table-value">Norte</div>
+            </div>
+            <div class="table-row">
+              <div class="table-label">Número Kua do Ocupante</div>
+              <div class="table-value">2</div>
+            </div>
+            <div class="table-row">
+              <div class="table-label">Grupo do Ocupante</div>
+              <div class="table-value">Oeste (West Group)</div>
+            </div>
+            <div class="table-row">
+              <div class="table-label">Classificação da Direção</div>
+              <div class="table-value">Jue Ming (Perda Total)</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="right-section">
+          <div class="interpretation-title">Interpretação da Análise</div>
+          
+          <p class="interpretation-text">
+            A casa voltada para Norte representa uma direção <strong>desfavorável</strong> para Gabriel (Kua 2), classificada como <strong>Jue Ming</strong> (Perda Total), que é a direção mais desafiadora no sistema Ba Zhai.
+          </p>
+          
+          <p class="interpretation-text">
+            Esta configuração requer <strong>correções importantes</strong> através de técnicas específicas de Feng Shui para neutralizar os efeitos negativos e potencializar as energias positivas disponíveis em outros setores da residência.
+          </p>
+          
+          <div class="highlight-box">
+            <i class="fas fa-exclamation-triangle warning-icon"></i>
+            Recomendação: Implementar estratégias corretivas imediatas, incluindo redirecionamento de entradas, uso de elementos de terra e ajustes na distribuição dos ambientes.
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

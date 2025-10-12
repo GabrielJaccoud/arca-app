@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5E6D3;
+        font-family: 'Montserrat', sans-serif;
+        padding: 50px 80px 40px;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #D4AF37;
+        padding-bottom: 12px;
+      }
+      .timeline-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+      .timeline-row {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 30px;
+        align-items: center;
+      }
+      .phase-badge {
+        background: linear-gradient(135deg, #8B4513, #A0522D);
+        color: #F5E6D3;
+        padding: 18px 25px;
+        text-align: center;
+        position: relative;
+      }
+      .phase-badge::after {
+        content: '';
+        position: absolute;
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+        border-left: 15px solid #A0522D;
+      }
+      .phase-number {
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+      }
+      .phase-period {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .phase-content {
+        background: rgba(255, 255, 255, 0.6);
+        padding: 20px 28px;
+        border-left: 5px solid #D4AF37;
+      }
+      .phase-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #6B8E23;
+        margin-bottom: 10px;
+      }
+      .phase-description {
+        font-size: 16px;
+        color: #2C2C2C;
+        line-height: 1.6;
+      }
+      .temporal-note {
+        background: linear-gradient(135deg, #6B8E23, #8BA23E);
+        color: #F5E6D3;
+        padding: 20px 30px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .note-icon {
+        font-size: 36px;
+        flex-shrink: 0;
+      }
+      .note-content {
+        flex: 1;
+      }
+      .note-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .note-text {
+        font-size: 16px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="page-title">Cronograma de Implementação</h1>
+      
+      <div class="timeline-container">
+        <div class="timeline-row">
+          <div class="phase-badge">
+            <div class="phase-number">Fase 1</div>
+            <div class="phase-period">Até Jan 2026</div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Durante a Construção</div>
+            <div class="phase-description">
+              Ajustar entrada principal, definir posicionamento dos cômodos conforme recomendações Feng Shui, escolher revestimentos e cores adequadas (tons terrosos), instalar elementos estruturais de correção.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-row">
+          <div class="phase-badge">
+            <div class="phase-number">Fase 2</div>
+            <div class="phase-period">A partir Jan 2026</div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Pós-Ocupação</div>
+            <div class="phase-description">
+              Posicionamento estratégico de móveis (cama voltada para Oeste, mesa de trabalho para Nordeste), decoração com elementos específicos (cristais, plantas, cerâmica), ajustes finos de Feng Shui conforme experiência de ocupação.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-row">
+          <div class="phase-badge">
+            <div class="phase-number">Ritual</div>
+            <div class="phase-period">Jan 2026</div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Harmonização na Mudança</div>
+            <div class="phase-description">
+              Cerimônia de limpeza energética, ativação dos setores favoráveis com elementos específicos, período de adaptação de 100 dias para estabilização das energias. Rituais recomendados para inauguração da residência.
+            </div>
+          </div>
+        </div>
+        
+        <div class="temporal-note">
+          <div class="note-icon">
+            <i class="fas fa-calendar-star"></i>
+          </div>
+          <div class="note-content">
+            <div class="note-title">Consideração Temporal Favorável</div>
+            <div class="note-text">
+              O período de ocupação (janeiro 2026) coincide com o elemento Madeira, que é o elemento útil de Gabriel segundo a análise BaZi. Este timing natural favorece a harmonização energética e o início de uma nova fase próspera.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

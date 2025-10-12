@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5E6D3;
+        font-family: 'Montserrat', sans-serif;
+        padding: 60px 80px;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 40px;
+        border-bottom: 3px solid #D4AF37;
+        padding-bottom: 15px;
+      }
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        flex: 1;
+      }
+      .info-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .info-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 28px;
+      }
+      .icon-wrapper {
+        width: 50px;
+        height: 50px;
+        background: #D4AF37;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        flex-shrink: 0;
+      }
+      .icon-wrapper i {
+        font-size: 24px;
+        color: #F5E6D3;
+      }
+      .info-content {
+        flex: 1;
+      }
+      .info-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #6B8E23;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .info-value {
+        font-size: 20px;
+        font-weight: 400;
+        color: #2C2C2C;
+        line-height: 1.4;
+      }
+      .image-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .image-wrapper {
+        width: 100%;
+        height: 500px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+      .image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="page-title">Visão Geral do Projeto</h1>
+      
+      <div class="content-grid">
+        <div class="info-section">
+          <div class="info-item">
+            <div class="icon-wrapper">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="info-content">
+              <div class="info-label">Localização</div>
+              <div class="info-value">Rio das Ostras, RJ, Brasil</div>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="icon-wrapper">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="info-content">
+              <div class="info-label">Início da Obra</div>
+              <div class="info-value">15 de julho de 2024</div>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="icon-wrapper">
+              <i class="fas fa-home"></i>
+            </div>
+            <div class="info-content">
+              <div class="info-label">Previsão de Ocupação</div>
+              <div class="info-value">10 de janeiro de 2026</div>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="icon-wrapper">
+              <i class="fas fa-compass"></i>
+            </div>
+            <div class="info-content">
+              <div class="info-label">Orientação da Edificação</div>
+              <div class="info-value">Norte</div>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="icon-wrapper">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="info-content">
+              <div class="info-label">Arquivo da Planta</div>
+              <div class="info-value">20250908-AMS-LAY-NTHLSQR-PB.pdf</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="image-section">
+          <div class="image-wrapper">
+            <img src="/home/ubuntu/arca-app/apresentacao_feng_shui_nthlsqr/rio_das_ostras.jpeg" alt="Rio das Ostras">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

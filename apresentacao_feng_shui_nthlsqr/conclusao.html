@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: linear-gradient(135deg, #F5E6D3 0%, #E8D5C4 100%);
+        font-family: 'Montserrat', sans-serif;
+        padding: 50px 80px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .decorative-element {
+        position: absolute;
+        opacity: 0.08;
+        border-radius: 50%;
+      }
+      .deco-1 {
+        width: 350px;
+        height: 350px;
+        background: #6B8E23;
+        top: -100px;
+        left: -100px;
+      }
+      .deco-2 {
+        width: 250px;
+        height: 250px;
+        background: #D4AF37;
+        bottom: -80px;
+        right: -80px;
+      }
+      .page-title {
+        font-size: 42px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 30px;
+        text-align: center;
+        z-index: 10;
+      }
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        z-index: 10;
+      }
+      .summary-section {
+        background: rgba(255, 255, 255, 0.7);
+        padding: 25px 35px;
+      }
+      .summary-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #6B8E23;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+      }
+      .summary-title i {
+        margin-right: 15px;
+        font-size: 28px;
+      }
+      .summary-text {
+        font-size: 18px;
+        color: #2C2C2C;
+        line-height: 1.6;
+      }
+      .prognosis-section {
+        background: linear-gradient(135deg, #6B8E23, #8BA23E);
+        padding: 25px 35px;
+      }
+      .prognosis-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #F5E6D3;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+      }
+      .prognosis-title i {
+        margin-right: 15px;
+        font-size: 28px;
+      }
+      .prognosis-text {
+        font-size: 18px;
+        color: #F5E6D3;
+        line-height: 1.6;
+      }
+      .monitoring-section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .monitoring-item {
+        text-align: center;
+        padding: 18px;
+        background: rgba(139, 69, 19, 0.08);
+      }
+      .monitor-icon {
+        width: 60px;
+        height: 60px;
+        background: #D4AF37;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+      }
+      .monitor-icon i {
+        font-size: 28px;
+        color: #2C2C2C;
+      }
+      .monitor-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #8B4513;
+        margin-bottom: 6px;
+      }
+      .monitor-desc {
+        font-size: 15px;
+        color: #2C2C2C;
+        line-height: 1.4;
+      }
+      .footer-note {
+        text-align: center;
+        padding-top: 15px;
+        border-top: 2px solid #D4AF37;
+      }
+      .footer-text {
+        font-size: 16px;
+        color: #6B8E23;
+        font-weight: 600;
+      }
+      .footer-system {
+        font-size: 14px;
+        color: #8B4513;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="decorative-element deco-1"></div>
+      <div class="decorative-element deco-2"></div>
+      
+      <h1 class="page-title">Conclusão e Próximos Passos</h1>
+      
+      <div class="content-wrapper">
+        <div class="summary-section">
+          <div class="summary-title">
+            <i class="fas fa-check-circle"></i>
+            Resumo da Análise
+          </div>
+          <p class="summary-text">
+            O projeto NTHLSQR-PB apresenta um desafio interessante com a orientação Norte sendo desfavorável para o ocupante principal (Gabriel, Kua 2). No entanto, através da aplicação integrada dos sistemas BaZi e Kua, é possível implementar correções eficazes que não apenas neutralizarão os aspectos negativos, mas também potencializarão as energias positivas disponíveis.
+          </p>
+        </div>
+        
+        <div class="prognosis-section">
+          <div class="prognosis-title">
+            <i class="fas fa-star"></i>
+            Prognóstico
+          </div>
+          <p class="prognosis-text">
+            Com a implementação adequada das recomendações apresentadas, espera-se uma transformação significativa na qualidade energética do ambiente, resultando em maior prosperidade, saúde e harmonia para os ocupantes. O período de ocupação (janeiro 2026) será favorável, coincidindo com o elemento Madeira.
+          </p>
+        </div>
+        
+        <div class="monitoring-section">
+          <div class="monitoring-item">
+            <div class="monitor-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="monitor-title">Avaliação Trimestral</div>
+            <div class="monitor-desc">Monitoramento periódico dos resultados e ajustes necessários</div>
+          </div>
+          
+          <div class="monitoring-item">
+            <div class="monitor-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <div class="monitor-title">Ajustes Sazonais</div>
+            <div class="monitor-desc">Adaptações conforme as estações do ano para otimizar o fluxo energético</div>
+          </div>
+          
+          <div class="monitoring-item">
+            <div class="monitor-icon">
+              <i class="fas fa-sync-alt"></i>
+            </div>
+            <div class="monitor-title">Revisões Periódicas</div>
+            <div class="monitor-desc">Atualização das recomendações a cada 3 anos</div>
+          </div>
+        </div>
+        
+        <div class="footer-note">
+          <div class="footer-text">Implementação Gradual e Consciente das Recomendações</div>
+          <div class="footer-system">Sistema ARCA - Arquitetura Consciente e Preditiva</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

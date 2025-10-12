@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #E8D0A9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #000000;
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+      }
+      .title {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        color: #4D6160;
+        text-align: center;
+      }
+      .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex: 1;
+      }
+      .analysis-column {
+        flex: 1;
+        padding: 0 15px;
+      }
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #A52A2A;
+        border-bottom: 2px solid #B87333;
+        padding-bottom: 8px;
+      }
+      .analysis-list {
+        margin-bottom: 25px;
+      }
+      .analysis-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+      .analysis-icon {
+        color: #4D6160;
+        margin-right: 10px;
+        font-size: 20px;
+        min-width: 25px;
+        text-align: center;
+      }
+      .analysis-text {
+        font-size: 18px;
+      }
+      .footer {
+        font-size: 18px;
+        margin-top: 30px;
+        text-align: center;
+        color: #4D6160;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="title">Análise da Planta Baixa</h1>
+      
+      <div class="content">
+        <div class="analysis-column">
+          <h2 class="section-title">Descrição dos Ambientes</h2>
+          <div class="analysis-list">
+            <div class="analysis-item">
+              <i class="fas fa-couch analysis-icon"></i>
+              <span class="analysis-text">Área social integrada (sala de estar/jantar)</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-utensils analysis-icon"></i>
+              <span class="analysis-text">Cozinha com área de serviço</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-bed analysis-icon"></i>
+              <span class="analysis-text">Quartos (suítes)</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-bath analysis-icon"></i>
+              <span class="analysis-text">Banheiros</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-swimming-pool analysis-icon"></i>
+              <span class="analysis-text">Área externa com piscina</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-umbrella-beach analysis-icon"></i>
+              <span class="analysis-text">Varanda/terraço</span>
+            </div>
+          </div>
+          
+          <h2 class="section-title">Pontos Positivos</h2>
+          <div class="analysis-list">
+            <div class="analysis-item">
+              <i class="fas fa-check-circle analysis-icon" style="color: #4D6160;"></i>
+              <span class="analysis-text">Layout integrado favorece o fluxo de energia (Qi)</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-check-circle analysis-icon" style="color: #4D6160;"></i>
+              <span class="analysis-text">Presença de água (piscina) pode ser benéfica se bem posicionada</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-check-circle analysis-icon" style="color: #4D6160;"></i>
+              <span class="analysis-text">Ambientes bem proporcionados</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="analysis-column">
+          <h2 class="section-title">Pontos de Atenção</h2>
+          <div class="analysis-list">
+            <div class="analysis-item">
+              <i class="fas fa-exclamation-triangle analysis-icon" style="color: #A52A2A;"></i>
+              <span class="analysis-text">Orientação Norte desfavorável para o ocupante principal (Kua 2)</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-exclamation-triangle analysis-icon" style="color: #A52A2A;"></i>
+              <span class="analysis-text">Posicionamento dos quartos precisa ser avaliado conforme direções favoráveis</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-exclamation-triangle analysis-icon" style="color: #A52A2A;"></i>
+              <span class="analysis-text">Verificar alinhamento da cozinha (elemento fogo) com direções favoráveis</span>
+            </div>
+          </div>
+          
+          <h2 class="section-title">Recomendações Gerais</h2>
+          <div class="analysis-list">
+            <div class="analysis-item">
+              <i class="fas fa-lightbulb analysis-icon" style="color: #B87333;"></i>
+              <span class="analysis-text">Posicionar quarto principal no setor Sudoeste (Fu Wei - Estabilidade)</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-lightbulb analysis-icon" style="color: #B87333;"></i>
+              <span class="analysis-text">Criar área de trabalho/escritório no setor Nordeste (Sheng Qi - Prosperidade)</span>
+            </div>
+            <div class="analysis-item">
+              <i class="fas fa-lightbulb analysis-icon" style="color: #B87333;"></i>
+              <span class="analysis-text">Utilizar elementos de terra (cerâmica, pedras) para neutralizar a orientação Norte desfavorável</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p>A análise da planta baixa considera a orientação da casa e o número Kua do ocupante principal</p>
+      </div>
+    </div>
+  </body>
+</html>

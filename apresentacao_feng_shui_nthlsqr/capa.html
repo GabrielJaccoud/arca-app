@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: linear-gradient(135deg, #F5E6D3 0%, #E8D5C4 100%);
+        font-family: 'Montserrat', sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .decorative-circle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.1;
+      }
+      .circle-1 {
+        width: 400px;
+        height: 400px;
+        background: #8B4513;
+        top: -100px;
+        right: -100px;
+      }
+      .circle-2 {
+        width: 300px;
+        height: 300px;
+        background: #6B8E23;
+        bottom: -80px;
+        left: -80px;
+      }
+      .circle-3 {
+        width: 200px;
+        height: 200px;
+        background: #D4AF37;
+        top: 50%;
+        right: 100px;
+        transform: translateY(-50%);
+      }
+      .content-wrapper {
+        z-index: 10;
+        text-align: center;
+        padding: 60px;
+      }
+      .main-title {
+        font-size: 64px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+      .subtitle {
+        font-size: 32px;
+        font-weight: 400;
+        color: #2C2C2C;
+        margin-bottom: 40px;
+      }
+      .system-name {
+        font-size: 28px;
+        font-weight: 600;
+        color: #6B8E23;
+        margin-bottom: 10px;
+      }
+      .tagline {
+        font-size: 20px;
+        font-weight: 300;
+        color: #2C2C2C;
+        font-style: italic;
+      }
+      .divider {
+        width: 200px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+        margin: 30px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="decorative-circle circle-1"></div>
+      <div class="decorative-circle circle-2"></div>
+      <div class="decorative-circle circle-3"></div>
+      
+      <div class="content-wrapper">
+        <h1 class="main-title">Análise Feng Shui Completa</h1>
+        <h2 class="subtitle">Projeto NTHLSQR-PB</h2>
+        
+        <div class="divider"></div>
+        
+        <p class="system-name">Sistema ARCA</p>
+        <p class="tagline">Arquitetura Consciente e Preditiva</p>
+      </div>
+    </div>
+  </body>
+</html>
+

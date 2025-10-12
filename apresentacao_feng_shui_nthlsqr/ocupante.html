@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5E6D3;
+        font-family: 'Montserrat', sans-serif;
+        padding: 60px 80px;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 50px;
+        border-bottom: 3px solid #D4AF37;
+        padding-bottom: 15px;
+      }
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .profile-icon {
+        width: 180px;
+        height: 180px;
+        background: linear-gradient(135deg, #8B4513, #A0522D);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 50px;
+        box-shadow: 0 15px 40px rgba(139, 69, 19, 0.3);
+      }
+      .profile-icon i {
+        font-size: 90px;
+        color: #F5E6D3;
+      }
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 80px;
+        width: 100%;
+        max-width: 900px;
+      }
+      .data-row {
+        text-align: center;
+      }
+      .data-label {
+        font-size: 18px;
+        font-weight: 600;
+        color: #6B8E23;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .data-value {
+        font-size: 26px;
+        font-weight: 400;
+        color: #2C2C2C;
+        line-height: 1.4;
+      }
+      .full-width {
+        grid-column: 1 / -1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="page-title">Ocupante Principal</h1>
+      
+      <div class="content-wrapper">
+        <div class="profile-icon">
+          <i class="fas fa-user"></i>
+        </div>
+        
+        <div class="info-grid">
+          <div class="data-row full-width">
+            <div class="data-label">Nome Completo</div>
+            <div class="data-value">Gabriel de Souza Jaccoud Cardoso</div>
+          </div>
+          
+          <div class="data-row">
+            <div class="data-label">Data de Nascimento</div>
+            <div class="data-value">10 de outubro de 1980</div>
+          </div>
+          
+          <div class="data-row">
+            <div class="data-label">Local de Nascimento</div>
+            <div class="data-value">Niterói, RJ</div>
+          </div>
+          
+          <div class="data-row">
+            <div class="data-label">Gênero</div>
+            <div class="data-value">Masculino</div>
+          </div>
+          
+          <div class="data-row">
+            <div class="data-label">Idade Atual</div>
+            <div class="data-value">44 anos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

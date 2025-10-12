@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5E6D3;
+        font-family: 'Montserrat', sans-serif;
+        padding: 60px 80px;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 40px;
+        border-bottom: 3px solid #D4AF37;
+        padding-bottom: 15px;
+      }
+      .main-layout {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+      }
+      .colors-section {
+        background: linear-gradient(90deg, #6B8E23, #8BA23E);
+        padding: 30px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .colors-content {
+        flex: 1;
+      }
+      .section-label {
+        font-size: 22px;
+        font-weight: 700;
+        color: #F5E6D3;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .colors-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+      }
+      .color-group {
+        display: flex;
+        flex-direction: column;
+      }
+      .color-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #F5E6D3;
+        margin-bottom: 8px;
+        opacity: 0.9;
+      }
+      .color-value {
+        font-size: 18px;
+        font-weight: 400;
+        color: #FFFFFF;
+        line-height: 1.5;
+      }
+      .priority-badge {
+        background: #D4AF37;
+        color: #2C2C2C;
+        padding: 15px 25px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        align-self: center;
+        min-width: 200px;
+      }
+      .directions-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+      .direction-column {
+        background: rgba(139, 69, 19, 0.06);
+        padding: 30px;
+      }
+      .column-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #D4AF37;
+      }
+      .direction-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .direction-row {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .direction-icon {
+        width: 45px;
+        height: 45px;
+        background: #D4AF37;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2C2C2C;
+        flex-shrink: 0;
+      }
+      .direction-info {
+        flex: 1;
+      }
+      .direction-name {
+        font-size: 18px;
+        font-weight: 600;
+        color: #2C2C2C;
+        margin-bottom: 3px;
+      }
+      .direction-purpose {
+        font-size: 15px;
+        font-weight: 400;
+        color: #6B8E23;
+      }
+      .elements-section {
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(139, 69, 19, 0.1));
+        padding: 25px 35px;
+      }
+      .elements-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #8B4513;
+        margin-bottom: 20px;
+      }
+      .elements-list {
+        font-size: 17px;
+        color: #2C2C2C;
+        line-height: 1.8;
+      }
+      .element-item {
+        margin-bottom: 8px;
+      }
+      .bullet {
+        color: #D4AF37;
+        font-weight: 700;
+        margin-right: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="page-title">Integração BaZi + Kua</h1>
+      
+      <div class="main-layout">
+        <div class="colors-section">
+          <div class="colors-content">
+            <div class="section-label">Síntese de Cores Recomendadas</div>
+            <div class="colors-grid">
+              <div class="color-group">
+                <div class="color-label">BaZi (Elemento Útil: Madeira)</div>
+                <div class="color-value">Verde, Marrom claro, Bege</div>
+              </div>
+              <div class="color-group">
+                <div class="color-label">Kua (Elemento: Terra)</div>
+                <div class="color-value">Amarelo, Marrom, Bege, Terracota</div>
+              </div>
+              <div class="color-group">
+                <div class="color-label">Integração Harmônica</div>
+                <div class="color-value">Bege e Marrom claro (comuns aos dois sistemas)</div>
+              </div>
+            </div>
+          </div>
+          <div class="priority-badge">
+            Cores<br>Prioritárias
+          </div>
+        </div>
+        
+        <div class="directions-section">
+          <div class="direction-column">
+            <h2 class="column-title">Direções Estratégicas</h2>
+            <div class="direction-list">
+              <div class="direction-row">
+                <div class="direction-icon">NE</div>
+                <div class="direction-info">
+                  <div class="direction-name">Nordeste</div>
+                  <div class="direction-purpose">Área de Trabalho / Escritório</div>
+                </div>
+              </div>
+              <div class="direction-row">
+                <div class="direction-icon">O</div>
+                <div class="direction-info">
+                  <div class="direction-name">Oeste</div>
+                  <div class="direction-purpose">Entrada Alternativa / Saúde</div>
+                </div>
+              </div>
+              <div class="direction-row">
+                <div class="direction-icon">SW</div>
+                <div class="direction-info">
+                  <div class="direction-name">Sudoeste</div>
+                  <div class="direction-purpose">Quarto Principal</div>
+                </div>
+              </div>
+              <div class="direction-row">
+                <div class="direction-icon">NW</div>
+                <div class="direction-info">
+                  <div class="direction-name">Noroeste</div>
+                  <div class="direction-purpose">Área de Relaxamento</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="direction-column">
+            <h2 class="column-title">Elementos Corretivos</h2>
+            <div class="elements-list">
+              <div class="element-item">
+                <span class="bullet">◆</span>Cristais de quartzo na entrada principal
+              </div>
+              <div class="element-item">
+                <span class="bullet">◆</span>Plantas com folhas arredondadas (elemento terra)
+              </div>
+              <div class="element-item">
+                <span class="bullet">◆</span>Iluminação amarela/dourada na fachada norte
+              </div>
+              <div class="element-item">
+                <span class="bullet">◆</span>Espelho Ba Gua discreto acima da porta
+              </div>
+              <div class="element-item">
+                <span class="bullet">◆</span>Fontes ou elementos de água no Nordeste
+              </div>
+              <div class="element-item">
+                <span class="bullet">◆</span>Jardim zen na área Sudoeste
+              </div>
+              <div class="element-item">
+                <span class="bullet">◆</span>Materiais: cerâmica, pedras naturais, madeira
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

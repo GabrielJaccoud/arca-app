@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #E8D0A9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #000000;
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+      }
+      .title {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #4D6160;
+        text-align: center;
+      }
+      .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex: 1;
+      }
+      .left-column, .right-column {
+        width: 48%;
+      }
+      .kua-info {
+        background: rgba(184, 115, 51, 0.15);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+      }
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #A52A2A;
+      }
+      .kua-number {
+        font-size: 60px;
+        font-weight: bold;
+        color: #4D6160;
+        text-align: center;
+        margin: 5px 0;
+      }
+      .kua-details {
+        display: flex;
+        flex-direction: column;
+      }
+      .kua-item {
+        display: flex;
+        margin-bottom: 8px;
+        align-items: center;
+      }
+      .kua-icon {
+        color: #4D6160;
+        margin-right: 15px;
+        font-size: 20px;
+        width: 25px;
+      }
+      .kua-text {
+        font-size: 18px;
+      }
+      .directions-container {
+        margin-top: 10px;
+      }
+      .direction-group {
+        margin-bottom: 10px;
+      }
+      .direction-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #4D6160;
+      }
+      .direction-list {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .direction-item {
+        background: rgba(77, 97, 96, 0.1);
+        border-radius: 5px;
+        padding: 6px 10px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
+      .favorable {
+        border-left: 4px solid #4D6160;
+      }
+      .unfavorable {
+        border-left: 4px solid #A52A2A;
+      }
+      .footer {
+        font-size: 18px;
+        margin-top: 15px;
+        text-align: center;
+        color: #4D6160;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <h1 class="title">Análise Kua (Ba Zhai)</h1>
+      
+      <div class="content">
+        <div class="left-column">
+          <div class="kua-info">
+            <h2 class="section-title">Número Kua</h2>
+            <div class="kua-number">2</div>
+            
+            <div class="kua-details">
+              <div class="kua-item">
+                <i class="fas fa-globe-asia kua-icon"></i>
+                <span class="kua-text"><strong>Grupo:</strong> West (Oeste)</span>
+              </div>
+              
+              <div class="kua-item">
+                <i class="fas fa-mountain kua-icon"></i>
+                <span class="kua-text"><strong>Elemento:</strong> Terra (Earth)</span>
+              </div>
+              
+              <div class="kua-item">
+                <i class="fas fa-user kua-icon"></i>
+                <span class="kua-text"><strong>Personalidade:</strong> Maternal, receptivo</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="kua-info">
+            <h2 class="section-title">Recomendações</h2>
+            
+            <div class="kua-details">
+              <div class="kua-item">
+                <i class="fas fa-palette kua-icon"></i>
+                <span class="kua-text"><strong>Cores:</strong> Amarelo, Marrom, Bege</span>
+              </div>
+              
+              <div class="kua-item">
+                <i class="fas fa-gem kua-icon"></i>
+                <span class="kua-text"><strong>Materiais:</strong> Cerâmica, Pedras</span>
+              </div>
+              
+              <div class="kua-item">
+                <i class="fas fa-shapes kua-icon"></i>
+                <span class="kua-text"><strong>Formas:</strong> Quadrado, Retangular</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="right-column">
+          <div class="kua-info directions-container">
+            <h2 class="section-title">Direções Favoráveis</h2>
+            
+            <div class="direction-group">
+              <h3 class="direction-title">Sheng Qi (Prosperidade)</h3>
+              <div class="direction-list">
+                <div class="direction-item favorable">Nordeste</div>
+              </div>
+            </div>
+            
+            <div class="direction-group">
+              <h3 class="direction-title">Tian Yi (Saúde)</h3>
+              <div class="direction-list">
+                <div class="direction-item favorable">Oeste</div>
+              </div>
+            </div>
+            
+            <div class="direction-group">
+              <h3 class="direction-title">Yan Nian (Relacionamentos)</h3>
+              <div class="direction-list">
+                <div class="direction-item favorable">Noroeste</div>
+              </div>
+            </div>
+            
+            <div class="direction-group">
+              <h3 class="direction-title">Fu Wei (Estabilidade)</h3>
+              <div class="direction-list">
+                <div class="direction-item favorable">Sudoeste</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="kua-info directions-container">
+            <h2 class="section-title">Direções Desfavoráveis</h2>
+            
+            <div class="direction-group">
+              <h3 class="direction-title">Huo Hai (Acidentes) / Wu Gui (Cinco Fantasmas)</h3>
+              <div class="direction-list">
+                <div class="direction-item unfavorable">Leste</div>
+                <div class="direction-item unfavorable">Sudeste</div>
+              </div>
+            </div>
+            
+            <div class="direction-group">
+              <h3 class="direction-title">Liu Sha (Seis Mortes) / Jue Ming (Perda Total)</h3>
+              <div class="direction-list">
+                <div class="direction-item unfavorable">Sul</div>
+                <div class="direction-item unfavorable">Norte</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p>A direção Norte (orientação da casa) é Jue Ming (Perda Total) para Gabriel - Kua 2</p>
+      </div>
+    </div>
+  </body>
+</html>

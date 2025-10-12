@@ -106,3 +106,123 @@ class CompleteAnalysis(db.Model):
         return f'<CompleteAnalysis {self.id}>'
 
 
+
+
+# ===== NOVOS MODELOS PARA FUNCIONALIDADES AVANÇADAS =====
+
+class GeobiologyAnalysis(db.Model):
+    """Modelo para armazenar análises geobiológicas"""
+    id = db.Column(db.Integer, primary_key=True)
+    floor_plan_id = db.Column(db.Integer, db.ForeignKey("floor_plan.id"), nullable=True)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+    area_width = db.Column(db.Float, nullable=False)
+    area_height = db.Column(db.Float, nullable=False)
+    soil_type = db.Column(db.String(50))
+    hartmann_grid_data = db.Column(db.JSON)
+    curry_grid_data = db.Column(db.JSON)
+    water_veins = db.Column(db.JSON)
+    geological_faults = db.Column(db.JSON)
+    geopathogenic_zones = db.Column(db.JSON)
+    soil_radiation = db.Column(db.JSON)
+    overall_assessment = db.Column(db.JSON)
+    analysis_date = db.Column(db.DateTime, default=datetime.datetime.now)
+
+    def __repr__(self):
+        return f'<GeobiologyAnalysis {self.latitude}, {self.longitude}>'
+
+
+class EMFAnalysis(db.Model):
+    """Modelo para armazenar análises de campos eletromagnéticos"""
+    id = db.Column(db.Integer, primary_key=True)
+    floor_plan_id = db.Column(db.Integer, db.ForeignKey("floor_plan.id"), nullable=True)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+    cell_towers = db.Column(db.JSON)
+    power_lines = db.Column(db.JSON)
+    transformers = db.Column(db.JSON)
+    internal_sources = db.Column(db.JSON)
+    total_exposure = db.Column(db.JSON)
+    overall_assessment = db.Column(db.JSON)
+    recommendations = db.Column(db.JSON)
+    analysis_date = db.Column(db.DateTime, default=datetime.datetime.now)
+
+    def __repr__(self):
+        return f'<EMFAnalysis {self.latitude}, {self.longitude}>'
+
+
+class LeyLineAnalysis(db.Model):
+    """Modelo para armazenar análises de linhas ley"""
+    id = db.Column(db.Integer, primary_key=True)
+    floor_plan_id = db.Column(db.Integer, db.ForeignKey("floor_plan.id"), nullable=True)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+    search_radius_km = db.Column(db.Float, default=50.0)
+    sacred_sites = db.Column(db.JSON)
+    ley_lines = db.Column(db.JSON)
+    energy_vortices = db.Column(db.JSON)
+    astronomical_alignments = db.Column(db.JSON)
+    overall_assessment = db.Column(db.JSON)
+    analysis_date = db.Column(db.DateTime, default=datetime.datetime.now)
+
+    def __repr__(self):
+        return f'<LeyLineAnalysis {self.latitude}, {self.longitude}>'
+
+
+class SacredGeometryAnalysis(db.Model):
+    """Modelo para armazenar análises de geometria sagrada"""
+    id = db.Column(db.Integer, primary_key=True)
+    floor_plan_id = db.Column(db.Integer, db.ForeignKey("floor_plan.id"), nullable=True)
+    overall_dimensions = db.Column(db.JSON)
+    room_analyses = db.Column(db.JSON)
+    sacred_patterns = db.Column(db.JSON)
+    fibonacci_analysis = db.Column(db.JSON)
+    platonic_solids = db.Column(db.JSON)
+    harmony_score = db.Column(db.Float)
+    overall_assessment = db.Column(db.JSON)
+    recommendations = db.Column(db.JSON)
+    analysis_date = db.Column(db.DateTime, default=datetime.datetime.now)
+
+    def __repr__(self):
+        return f'<SacredGeometryAnalysis {self.id}>'
+
+
+class SacredArchitectureAnalysis(db.Model):
+    """Modelo para armazenar análises de arquitetura sagrada"""
+    id = db.Column(db.Integer, primary_key=True)
+    floor_plan_id = db.Column(db.Integer, db.ForeignKey("floor_plan.id"), nullable=True)
+    room_analyses = db.Column(db.JSON)
+    materials_analysis = db.Column(db.JSON)
+    sacred_spaces = db.Column(db.JSON)
+    astronomical_integration = db.Column(db.JSON)
+    circulation_flow = db.Column(db.JSON)
+    symmetry_balance = db.Column(db.JSON)
+    overall_assessment = db.Column(db.JSON)
+    comprehensive_recommendations = db.Column(db.JSON)
+    analysis_date = db.Column(db.DateTime, default=datetime.datetime.now)
+
+    def __repr__(self):
+        return f'<SacredArchitectureAnalysis {self.id}>'
+
+
+class IntegratedAnalysis(db.Model):
+    """Modelo para armazenar análises integradas de todas as funcionalidades"""
+    id = db.Column(db.Integer, primary_key=True)
+    floor_plan_id = db.Column(db.Integer, db.ForeignKey("floor_plan.id"), nullable=False)
+    bazi_analysis_id = db.Column(db.Integer, db.ForeignKey("ba_zi_analysis.id"), nullable=True)
+    kua_analysis_id = db.Column(db.Integer, db.ForeignKey("kua_analysis.id"), nullable=True)
+    geobiology_analysis_id = db.Column(db.Integer, db.ForeignKey("geobiology_analysis.id"), nullable=True)
+    emf_analysis_id = db.Column(db.Integer, db.ForeignKey("emf_analysis.id"), nullable=True)
+    leyline_analysis_id = db.Column(db.Integer, db.ForeignKey("ley_line_analysis.id"), nullable=True)
+    sacred_geometry_analysis_id = db.Column(db.Integer, db.ForeignKey("sacred_geometry_analysis.id"), nullable=True)
+    sacred_architecture_analysis_id = db.Column(db.Integer, db.ForeignKey("sacred_architecture_analysis.id"), nullable=True)
+    
+    overall_health_score = db.Column(db.Float)  # Score geral 0-100
+    priority_recommendations = db.Column(db.JSON)
+    implementation_plan = db.Column(db.JSON)
+    risk_assessment = db.Column(db.JSON)
+    analysis_date = db.Column(db.DateTime, default=datetime.datetime.now)
+
+    def __repr__(self):
+        return f'<IntegratedAnalysis {self.id}>'
+
