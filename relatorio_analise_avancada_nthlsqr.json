@@ -1,0 +1,1449 @@
+{
+  "metadata": {
+    "project": "NTHLSQR-PB",
+    "location": "Rio das Ostras, RJ, Brazil",
+    "analysis_date": "2025-10-17T12:00:30.760669",
+    "system_version": "ARCA v3.1",
+    "analyst": "Sistema ARCA - Análise Automatizada"
+  },
+  "geobiology_analysis": {
+    "location": {
+      "latitude": -22.5264,
+      "longitude": -41.9456,
+      "area_width": 20.0,
+      "area_height": 15.0,
+      "soil_type": "sand"
+    },
+    "environmental_factors": {
+      "magnetic_intensity_factor": 1.2502933333333333,
+      "lunar_factor": 1.26,
+      "analysis_date": "2025-10-17T12:00:22.933484"
+    },
+    "hartmann_grid": {
+      "spacing_ns": 2.0,
+      "spacing_ew": 2.5,
+      "line_width": 0.21,
+      "ns_lines": [
+        {
+          "position": 0.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 2.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 4.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 6.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 8.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 10.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 12.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 14.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 16.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 18.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 20.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 22.0,
+          "orientation": "north-south",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        }
+      ],
+      "ew_lines": [
+        {
+          "position": 0.0,
+          "orientation": "east-west",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 2.5,
+          "orientation": "east-west",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 5.0,
+          "orientation": "east-west",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 7.5,
+          "orientation": "east-west",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 10.0,
+          "orientation": "east-west",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 12.5,
+          "orientation": "east-west",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 15.0,
+          "orientation": "east-west",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        },
+        {
+          "position": 17.5,
+          "orientation": "east-west",
+          "width": 0.21,
+          "intensity_factor": 1.5753696
+        }
+      ],
+      "total_crossings": 96,
+      "crossings": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 0.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 0.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 0.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 0.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 0.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 0.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 0.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 2.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 2.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 2.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 2.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 2.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 2.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 2.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 2.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 4.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 4.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 4.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 4.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 4.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 4.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 4.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 4.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 6.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 6.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 6.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 6.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 6.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 6.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 6.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 6.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 8.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 8.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 8.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 8.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 8.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 8.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 8.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 8.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 10.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 10.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 10.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 10.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 10.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 10.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 10.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 10.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 12.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 12.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 12.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 12.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 12.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 12.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 12.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 12.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 14.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 14.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 14.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 14.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 14.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 14.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 14.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 14.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 16.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 16.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 16.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 16.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 16.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 16.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 16.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 16.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 18.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 18.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 18.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 18.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 18.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 18.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 18.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 18.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 20.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 20.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 20.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 20.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 20.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 20.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 20.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 20.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 22.0,
+          "y": 0.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 22.0,
+          "y": 2.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 22.0,
+          "y": 5.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 22.0,
+          "y": 7.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 22.0,
+          "y": 10.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 22.0,
+          "y": 12.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 22.0,
+          "y": 15.0,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        },
+        {
+          "x": 22.0,
+          "y": 17.5,
+          "type": "hartmann",
+          "bovis_units": 4126,
+          "risk_level": "high",
+          "width": 0.21
+        }
+      ],
+      "magnetic_factor": 1.2502933333333333,
+      "lunar_factor": 1.26,
+      "description": "Grade Hartmann - Rede geomagnética global com orientação N-S e L-O"
+    },
+    "curry_grid": {
+      "spacing": 3.5,
+      "rotation": 45.0,
+      "line_width": 0.6,
+      "ne_sw_lines": [
+        {
+          "offset": 0.0,
+          "orientation": "ne-sw",
+          "angle": 45.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 3.5,
+          "orientation": "ne-sw",
+          "angle": 45.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 7.0,
+          "orientation": "ne-sw",
+          "angle": 45.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 10.5,
+          "orientation": "ne-sw",
+          "angle": 45.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 14.0,
+          "orientation": "ne-sw",
+          "angle": 45.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 17.5,
+          "orientation": "ne-sw",
+          "angle": 45.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 21.0,
+          "orientation": "ne-sw",
+          "angle": 45.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 24.5,
+          "orientation": "ne-sw",
+          "angle": 45.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 28.0,
+          "orientation": "ne-sw",
+          "angle": 45.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        }
+      ],
+      "nw_se_lines": [
+        {
+          "offset": 0.0,
+          "orientation": "nw-se",
+          "angle": 135.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 3.5,
+          "orientation": "nw-se",
+          "angle": 135.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 7.0,
+          "orientation": "nw-se",
+          "angle": 135.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 10.5,
+          "orientation": "nw-se",
+          "angle": 135.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 14.0,
+          "orientation": "nw-se",
+          "angle": 135.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 17.5,
+          "orientation": "nw-se",
+          "angle": 135.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 21.0,
+          "orientation": "nw-se",
+          "angle": 135.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 24.5,
+          "orientation": "nw-se",
+          "angle": 135.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        },
+        {
+          "offset": 28.0,
+          "orientation": "nw-se",
+          "angle": 135.0,
+          "width": 0.6,
+          "intensity_factor": 1.8904435199999998
+        }
+      ],
+      "total_crossings": 9,
+      "crossings": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "type": "curry",
+          "bovis_units": 2909,
+          "risk_level": "critical",
+          "width": 0.6
+        },
+        {
+          "x": 3.5,
+          "y": 3.5,
+          "type": "curry",
+          "bovis_units": 2909,
+          "risk_level": "critical",
+          "width": 0.6
+        },
+        {
+          "x": 7.0,
+          "y": 7.0,
+          "type": "curry",
+          "bovis_units": 2909,
+          "risk_level": "critical",
+          "width": 0.6
+        },
+        {
+          "x": 10.5,
+          "y": 10.5,
+          "type": "curry",
+          "bovis_units": 2909,
+          "risk_level": "critical",
+          "width": 0.6
+        },
+        {
+          "x": 14.0,
+          "y": 14.0,
+          "type": "curry",
+          "bovis_units": 2909,
+          "risk_level": "critical",
+          "width": 0.6
+        },
+        {
+          "x": 17.5,
+          "y": 2.5,
+          "type": "curry",
+          "bovis_units": 2909,
+          "risk_level": "critical",
+          "width": 0.6
+        },
+        {
+          "x": 1.0,
+          "y": 6.0,
+          "type": "curry",
+          "bovis_units": 2909,
+          "risk_level": "critical",
+          "width": 0.6
+        },
+        {
+          "x": 4.5,
+          "y": 9.5,
+          "type": "curry",
+          "bovis_units": 2909,
+          "risk_level": "critical",
+          "width": 0.6
+        },
+        {
+          "x": 8.0,
+          "y": 13.0,
+          "type": "curry",
+          "bovis_units": 2909,
+          "risk_level": "critical",
+          "width": 0.6
+        }
+      ],
+      "magnetic_factor": 1.500352,
+      "lunar_factor": 1.26,
+      "description": "Grade Curry - Rede diagonal com maior intensidade que Hartmann"
+    },
+    "benker_grid": {
+      "spacing": 10.0,
+      "total_crossings": 6,
+      "crossings": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "type": "benker",
+          "bovis_units": 6000,
+          "risk_level": "low",
+          "affects_vertical": true
+        },
+        {
+          "x": 0.0,
+          "y": 10.0,
+          "type": "benker",
+          "bovis_units": 6000,
+          "risk_level": "low",
+          "affects_vertical": true
+        },
+        {
+          "x": 10.0,
+          "y": 0.0,
+          "type": "benker",
+          "bovis_units": 6000,
+          "risk_level": "low",
+          "affects_vertical": true
+        },
+        {
+          "x": 10.0,
+          "y": 10.0,
+          "type": "benker",
+          "bovis_units": 6000,
+          "risk_level": "low",
+          "affects_vertical": true
+        },
+        {
+          "x": 20.0,
+          "y": 0.0,
+          "type": "benker",
+          "bovis_units": 6000,
+          "risk_level": "low",
+          "affects_vertical": true
+        },
+        {
+          "x": 20.0,
+          "y": 10.0,
+          "type": "benker",
+          "bovis_units": 6000,
+          "risk_level": "low",
+          "affects_vertical": true
+        }
+      ],
+      "description": "Grade Benker - Rede cúbica tridimensional (10m x 10m x 10m)",
+      "note": "Afeta edifícios verticalmente em todos os andares"
+    },
+    "water_veins": {
+      "veins_detected": 0,
+      "veins": [],
+      "soil_type": "sand",
+      "detection_probability": 0.5,
+      "description": "Veios de água subterrâneos criam campos eletromagnéticos por atrito"
+    },
+    "geological_faults": {
+      "faults_detected": 1,
+      "faults": [
+        {
+          "id": "fault_1",
+          "start_x": 12.687828613215457,
+          "start_y": 4.484559300009945,
+          "end_x": 13.603263636694834,
+          "end_y": 6.581858930329067,
+          "depth_meters": 33.25241148437682,
+          "type": "reverse",
+          "activity": "potentially_active",
+          "width_meters": 6.24423019400145,
+          "bovis_units": 3761,
+          "risk_level": "critical"
+        }
+      ],
+      "detection_probability": 0.11493272545679507,
+      "description": "Falhas geológicas emitem radiações e podem liberar gases (radônio)"
+    },
+    "geopathogenic_zones": {
+      "total_geopathogenic_zones": 2,
+      "zones": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "type": "double_crossing",
+          "components": [
+            "hartmann",
+            "curry"
+          ],
+          "bovis_units": 4000,
+          "risk_level": "critical",
+          "radius_meters": 1.0,
+          "description": "Cruzamento duplo Hartmann-Curry - zona altamente geopatogênica"
+        },
+        {
+          "x": 13.145546124955146,
+          "y": 5.533209115169505,
+          "type": "geological_fault",
+          "components": [
+            "fault"
+          ],
+          "bovis_units": 3761,
+          "risk_level": "critical",
+          "radius_meters": 6.24423019400145,
+          "description": "Falha geológica reverse - potentially_active"
+        }
+      ],
+      "critical_zones": 2,
+      "high_risk_zones": 0,
+      "medium_risk_zones": 0,
+      "overall_risk_assessment": "critical",
+      "hartmann_crossings": 96,
+      "curry_crossings": 9,
+      "water_veins": 0,
+      "geological_faults": 1,
+      "recommendations": [
+        "URGENTE: Evitar posicionar camas e locais de permanência prolongada sobre zonas geopatogênicas",
+        "Considerar blindagem geobiológica com materiais específicos (cortiça, carvão ativado)",
+        "Realizar medições presenciais com radiestesista profissional",
+        "Identificados 1 cruzamentos duplos - evitar rigorosamente",
+        "Atenção: 1 falhas geológicas detectadas - risco de radônio",
+        "Instalar sistema de ventilação adequado para prevenir acúmulo de radônio",
+        "Posicionar camas com cabeceira ao Norte ou Leste, longe de cruzamentos",
+        "Utilizar plantas purificadoras de ar (espada-de-são-jorge, lírio-da-paz)",
+        "Considerar uso de cristais de quartzo ou shungite para harmonização"
+      ]
+    },
+    "soil_radiation": {
+      "soil_type": "sand",
+      "radiation_level": "low",
+      "radiation_value_bq_m3": 25,
+      "radon_risk": "low",
+      "recommendations": []
+    },
+    "overall_assessment": {
+      "geobiological_health_score": 55,
+      "risk_level": "critical",
+      "suitable_for_habitation": false,
+      "main_concerns": [
+        "2 zonas críticas identificadas",
+        "Presença de falha geológica - risco de radônio",
+        "Nível geral de risco geobiológico elevado"
+      ],
+      "priority_actions": [
+        "URGENTE: Evitar posicionar camas e locais de permanência prolongada sobre zonas geopatogênicas",
+        "Considerar blindagem geobiológica com materiais específicos (cortiça, carvão ativado)",
+        "Realizar medições presenciais com radiestesista profissional",
+        "Identificados 1 cruzamentos duplos - evitar rigorosamente",
+        "Atenção: 1 falhas geológicas detectadas - risco de radônio"
+      ]
+    },
+    "detailed_recommendations": {
+      "sleeping_areas": [
+        "Posicionar cama a pelo menos 1,5m de distância de zonas geopatogênicas",
+        "Orientar cabeceira preferencialmente ao Norte ou Leste",
+        "Evitar camas sobre cruzamentos Hartmann e especialmente Curry",
+        "Utilizar colchão de materiais naturais (látex natural, algodão orgânico)",
+        "Considerar uso de tapete de shungite sob a cama para blindagem",
+        "Manter quarto bem ventilado para dispersar possível radônio",
+        "Evitar dispositivos eletrônicos próximos à cabeceira"
+      ],
+      "working_areas": [
+        "Posicionar mesa de trabalho longe de cruzamentos de redes",
+        "Orientar mesa preferencialmente voltada para Norte ou Leste",
+        "Utilizar plantas purificadoras próximas à área de trabalho",
+        "Fazer pausas regulares e caminhar para dispersar energia estagnada",
+        "Considerar uso de cristais de quartzo na mesa",
+        "Manter boa iluminação natural sempre que possível"
+      ],
+      "mitigation_strategies": [
+        "BLINDAGEM FÍSICA: Instalar placas de cortiça (3-5cm) sob áreas críticas",
+        "BLINDAGEM MINERAL: Utilizar shungite, turmalina negra ou hematita",
+        "DESVIO ENERGÉTICO: Criar espirais de cobre para desviar linhas telúricas",
+        "NEUTRALIZAÇÃO: Usar pirâmides de cobre nas proporções de Keops",
+        "VEGETAÇÃO: Plantar árvores de raízes profundas para drenar energia",
+        "Realizar limpeza energética regular com defumação (alecrim, arruda)",
+        "Utilizar sal grosso nos cantos dos ambientes",
+        "Manter cristais de quartzo limpos e energizados",
+        "Considerar consulta com radiestesista profissional para medições precisas"
+      ],
+      "monitoring": [
+        "Realizar medições geobiológicas a cada 6 meses (redes podem variar)",
+        "Monitorar qualidade do sono e bem-estar dos ocupantes",
+        "Medir níveis de radônio anualmente (especialmente em porões)",
+        "Observar comportamento de animais de estimação (evitam zonas geopatogênicas)",
+        "Documentar qualquer mudança na saúde após mudanças de layout",
+        "Considerar medições profissionais com equipamento especializado"
+      ]
+    }
+  },
+  "leyline_analysis": {
+    "location": {
+      "latitude": -22.5264,
+      "longitude": -41.9456,
+      "search_radius_km": 100.0
+    },
+    "sacred_sites": {
+      "total_found": 1,
+      "sites": [
+        {
+          "name": "Igreja de Nossa Senhora da Conceição - Rio das Ostras",
+          "latitude": -22.5264,
+          "longitude": -41.9456,
+          "type": "church",
+          "significance": "Igreja histórica da cidade",
+          "energy_type": "spiritual",
+          "power_level": 5,
+          "distance_km": 0.0,
+          "cardinal_direction": "N",
+          "azimuth": 0.0
+        }
+      ],
+      "closest_site": {
+        "name": "Igreja de Nossa Senhora da Conceição - Rio das Ostras",
+        "latitude": -22.5264,
+        "longitude": -41.9456,
+        "type": "church",
+        "significance": "Igreja histórica da cidade",
+        "energy_type": "spiritual",
+        "power_level": 5,
+        "distance_km": 0.0,
+        "cardinal_direction": "N",
+        "azimuth": 0.0
+      },
+      "sites_by_type": {
+        "church": [
+          {
+            "name": "Igreja de Nossa Senhora da Conceição - Rio das Ostras",
+            "latitude": -22.5264,
+            "longitude": -41.9456,
+            "type": "church",
+            "significance": "Igreja histórica da cidade",
+            "energy_type": "spiritual",
+            "power_level": 5,
+            "distance_km": 0.0,
+            "cardinal_direction": "N",
+            "azimuth": 0.0
+          }
+        ]
+      },
+      "total_power_level": 5,
+      "average_power_level": 5.0,
+      "search_radius_km": 100.0
+    },
+    "ley_lines": {
+      "ley_lines_identified": 0,
+      "ley_lines": [],
+      "lines_passing_through": [],
+      "location_on_ley_line": false,
+      "description": "Linhas ley são alinhamentos geométricos entre sítios sagrados"
+    },
+    "energy_vortices": {
+      "vortices_detected": 0,
+      "vortices": [],
+      "location_is_vortex": false,
+      "vortex_strength": "none",
+      "description": "Vórtices são pontos de convergência de múltiplas linhas ley"
+    },
+    "astronomical_alignments": {
+      "summer_solstice": {
+        "date": "December 21-22 (Southern Hemisphere)",
+        "sunrise_azimuth": 115.51,
+        "sunset_azimuth": 244.49,
+        "significance": "Dia mais longo do ano"
+      },
+      "winter_solstice": {
+        "date": "June 20-21 (Southern Hemisphere)",
+        "sunrise_azimuth": 64.49,
+        "sunset_azimuth": 295.51,
+        "significance": "Dia mais curto do ano"
+      },
+      "equinoxes": {
+        "dates": "March 20-21 and September 22-23",
+        "sunrise_azimuth": 90.0,
+        "sunset_azimuth": 270.0,
+        "significance": "Dia e noite com duração igual"
+      },
+      "optimal_building_orientation": {
+        "primary_axis": "north-south",
+        "recommended_entrance": "east",
+        "solar_alignment": "Orientar eixo principal N-S para maximizar luz solar"
+      }
+    },
+    "overall_assessment": {
+      "energetic_potential_score": 65.0,
+      "sacred_geography_rating": "medium",
+      "ideal_for_sacred_architecture": false,
+      "main_features": [
+        "1 sítios sagrados em raio de 100.0km",
+        "Sítio mais próximo: Igreja de Nossa Senhora da Conceição - Rio das Ostras (0.0km)"
+      ]
+    },
+    "recommendations": [
+      "Orientar edificação com eixo principal north-south",
+      "Entrada principal recomendada: east",
+      "Considerar peregrinação ao Igreja de Nossa Senhora da Conceição - Rio das Ostras para conexão energética",
+      "Criar aberturas para capturar luz solar nos equinócios",
+      "Marcar solstícios com elementos arquitetônicos (janelas, portais)"
+    ]
+  },
+  "visualizations": {
+    "geobiology_diagram": "/home/ubuntu/arca-app/visualizations/geobiology_complete_diagram.png",
+    "geobiology_heatmap": "/home/ubuntu/arca-app/visualizations/geobiology_risk_heatmap.png",
+    "leyline_map": "/home/ubuntu/arca-app/visualizations/leyline_map.png",
+    "astronomical_diagram": "/home/ubuntu/arca-app/visualizations/astronomical_alignments.png"
+  }
+}
